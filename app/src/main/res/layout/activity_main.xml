@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorVerdeTinte7"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="600dp"
+                android:alpha="0.8"
+                android:scaleType="center"
+                android:src="@drawable/adonis_tesis4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/logo_top"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/logo_top" />
+
+                <EditText
+                    android:id="@+id/editTextUsuario"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="20dp"
+                    android:hint="Usuario" />
+
+                <EditText
+                    android:id="@+id/editTextClave"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="20dp"
+                    android:hint="Contraseña"
+                    android:inputType="numberPassword" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Mostrar" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/scrollView"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewRed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorVerdeTinte6"
+            android:textAlignment="center"
+            android:textColor="@color/colorRojo"
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@color/colorVerdeSombra1"
+                android:onClick="ingresarButtonSelectHandler"
+                android:text="Ingresar"
+                android:textColor="@color/colorVerdeTinte5" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@color/colorVerdeSombra1"
+                android:onClick="registrarButtonSelectHandler"
+                android:text="Registrar"
+                android:textColor="@color/colorVerdeTinte5" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

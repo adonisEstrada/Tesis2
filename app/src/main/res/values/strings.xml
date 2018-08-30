@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Tesis</string>
+    <string name="title_paciente">Pacientes</string>
+    <string name="description_pacientes">Aqui podrá ver el listado completo de sus pacientes</string>
+    <string name="title_aprender">Aprender más</string>
+    <string name="description_aprender">Aqui podrás aprender mas sobre como usar esta
+    aplicación y los nuevos usos que le podrás encontrar</string>
+    <string name="title_acerca_de">Acerca de</string>
+    <string name="description_acerca_de">Aqui estará toda la información referente
+    a esta aplicación</string>
+    <string name="text_descripcion_acerca_de_iupsm">Aplicacion realizada en representación
+    de un Trabajo Especial de Grado para el Instituto Politécnico Universitario Santiago
+    Mariño para optar por el tituto de Ingeniería de Sistemas</string>
+    <string name="text_descripcion_acerda_de_her">Esta aplicación tiene como objetivo
+    aplicar una solución operativa en la Clínica Hostpital El Rosario C.A dedicada a los
+    médicos y enfermeras de dicha institución.</string>
+    <string name="text_description_acerca_de_developer">La presente aplicación movil esta
+    realizada con Android Studio como IDE, técnicas de diseño y modelado proporcionadas por
+    la misma plataforma, JAVA como lenguaje de programación. Técnicas de diseño como
+    DAOs, Service, POJOs, representando el patrón de diseño MVP.</string>
+    <string name="text_description_acerca_de_developer_description">Diseñador y desarrollador</string>
+    <string name="text_description_acerca_de_developer_name">Adonis Estrada</string>
+</resources>

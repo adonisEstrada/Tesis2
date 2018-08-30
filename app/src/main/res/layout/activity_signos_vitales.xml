@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/adonis_tesis6" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Paciente"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewPaciente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Adonis de Jesús Estrada Vallejo"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edad"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewEdad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="23 años"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Frecuencia cardiaca"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewFrecuenciaCardiaca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="86"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Temperatura"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewTemperatura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="39"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRojo" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Presion arterial"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewSistolica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sistolica: 110"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeAnalogo3" />
+
+                <TextView
+                    android:id="@+id/textViewDiastolica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Diastolica: 100"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRojo" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Frecuencia Respiratoria"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewFrecuenciaRespiratoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="16"
+                    android:textAlignment="center" />
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:alpha="0.7"-->
+                <!--android:background="@color/colorRojo"></LinearLayout>-->
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textColor="@color/colorVerdeSombra7"-->
+                <!--android:textSize="20dp"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Valor alto"/>-->
+                <!--</LinearLayout>-->
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

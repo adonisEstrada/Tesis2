@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorVerdeTinte6"
+    tools:context=".presenter.VerInterconsultaActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.3"
+                android:scaleType="centerCrop"
+                android:src="@drawable/medical1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Paciente"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewPaciente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Adonis de Jesús Estrada Vallejo"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edad"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewEdad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="23 años"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Especialidad"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewEspecialidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Ejemplo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Médico"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewMedico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Ejemplo"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Informe"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewInforme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center"
+                    android:gravity="center"
+                    android:text="Ejemplo"
+                    android:textColor="@color/colorVerdeSombra6"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
