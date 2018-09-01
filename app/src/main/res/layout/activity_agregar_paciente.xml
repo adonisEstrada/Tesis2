@@ -88,6 +88,7 @@
                     <EditText
                         android:id="@+id/editTextFechaNacimiento"
                         android:layout_width="0dp"
+                        android:textColor="@color/colorVerdeSombra5"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:enabled="false" />
