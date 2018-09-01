@@ -15,6 +15,21 @@ import com.example.adonis.tesis.dto.SignoVital;
 import com.example.adonis.tesis.viewmodel.InterconsultaViewModel;
 import com.example.adonis.tesis.viewmodel.PacienteViewModel;
 import com.example.adonis.tesis.viewmodel.SignoVitalViewModel;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import util.Converters;
 
@@ -32,7 +47,10 @@ public class SignosVitalesActivity extends AppCompatActivity {
     private TextView textViewDiastolica;
     private TextView textViewEdad;
 
+    private LineChart lineChart;
+
     private SignoVital signoVital;
+    private Interconsulta interconsulta;
     private Paciente paciente;
     private ProgressDialog progressDialog;
 
@@ -47,6 +65,7 @@ public class SignosVitalesActivity extends AppCompatActivity {
         textViewSistolica = (TextView) findViewById(R.id.textViewSistolica);
         textViewDiastolica = (TextView) findViewById(R.id.textViewDiastolica);
         textViewEdad = (TextView) findViewById(R.id.textViewEdad);
+        lineChart = (LineChart) findViewById(R.id.lineChart);
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
         interconsultaViewModel = ViewModelProviders.of(this).get(InterconsultaViewModel.class);
         progressDialog = new ProgressDialog(this);
@@ -74,10 +93,51 @@ public class SignosVitalesActivity extends AppCompatActivity {
                                     && interconsulta.getSignoVital() != null) {
                                 setSignoVital(interconsulta.getSignoVital());
                             }
+                            setInterconsultaForInterconsultaLessDate(interconsulta);
                         }
                     }
             );
         }
+//        List<Entry> entries = new ArrayList<Entry>();
+//        entries.add(new Entry(0, 5));
+//        entries.add(new Entry(1, 4));
+//        entries.add(new Entry(2, 7));
+//        LineDataSet dataSet = new LineDataSet(entries, "prueba");
+//        List<Entry> dataList = new ArrayList<>();
+//        dataList.add(new Entry(0, 2));
+//        dataList.add(new Entry(1, 1));
+//        dataList.add(new Entry(2, 4));
+//        LineDataSet dataSet1 = new LineDataSet(dataList, "prueba2");
+//        LineData lineData = new LineData(dataSet, dataSet1);
+//
+//        lineChart.setData(lineData);
+//        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.setValueFormatter(new IAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, AxisBase axisBase) {
+//                return labels.get((int) v);
+//            }
+//        });
+//        YAxis yAxis = lineChart.getAxisLeft();
+//        yAxis.setValueFormatter(new IAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, AxisBase axisBase) {
+//                return null;
+//            }
+//        });
+//        lineChart.getDescription().setText("Descripcion de prueba");
+//        lineChart.invalidate();
+    }
+
+    public void setInterconsultaForInterconsultaLessDate(Interconsulta interconsulta) {
+        interconsultaViewModel.getInterconsultaLessDate(interconsulta != null ? interconsulta.getFecha() : new Date()).observe(
+                this, new Observer<List<Interconsulta>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Interconsulta> interconsultas) {
+                        setDataForLineChart(interconsultas);
+                    }
+                }
+        );
     }
 
     public void showProgressDialog() {
@@ -142,10 +202,67 @@ public class SignosVitalesActivity extends AppCompatActivity {
         } else {
             textViewFrecuenciaRespiratoria.setTextColor(colorGris);
         }
-        textViewFrecuenciaRespiratoria.setText(fr+"");
-        textViewFrecuenciaCardiaca.setText(fc+"");
+        textViewFrecuenciaRespiratoria.setText(fr + "");
+        textViewFrecuenciaCardiaca.setText(fc + "");
         textViewTemperatura.setText(String.valueOf(temperatura) + (tipoTemperatura == 0 ? " °C" : " °F"));
-        textViewDiastolica.setText(diastole+"");
-        textViewSistolica.setText(sistole+"");
+        textViewDiastolica.setText(diastole + "");
+        textViewSistolica.setText(sistole + "");
+    }
+
+    public void setDataForLineChart(final List<Interconsulta> interconsultas) {
+        ArrayList<Entry> valoresSistolica = new ArrayList<>();
+        ArrayList<Entry> valoresDiastolica = new ArrayList<>();
+        ArrayList<Entry> valoresFC = new ArrayList<>();
+        ArrayList<Entry> valoresFR = new ArrayList<>();
+
+        for (int i = 0; i < interconsultas.size(); i++) {
+            SignoVital signoVital = interconsultas.get(i).getSignoVital();
+            valoresSistolica.add(new Entry(i, signoVital.getSistolica()));
+            valoresDiastolica.add(new Entry(i, signoVital.getDiatolica()));
+            valoresFC.add(new Entry(i, signoVital.getFrecuenciaCardiaca()));
+            valoresFR.add(new Entry(i, signoVital.getFecuenciaRespiratoria()));
+        }
+        LineDataSet lineDataSetSistolica = new LineDataSet(valoresSistolica, "Sistólica");
+        lineDataSetSistolica.setColor(getResources().getColor(R.color.colorMujer));
+        LineDataSet lineDataSetDiastolica = new LineDataSet(valoresDiastolica, "Diastólica");
+        lineDataSetDiastolica.setColor(getResources().getColor(R.color.colorVerdeTriadico2));
+        LineDataSet lineDataSetFC = new LineDataSet(valoresFC, "FC");
+        lineDataSetFC.setColor(getResources().getColor(R.color.colorVerdeAnalogo2));
+        LineDataSet lineDataSetFR = new LineDataSet(valoresFR, "FR");
+        lineDataSetFR.setColor(getResources().getColor(R.color.colorVerdeSombra4));
+        LineData lineData = new LineData(lineDataSetDiastolica,
+                lineDataSetSistolica,
+                lineDataSetFC,
+                lineDataSetFR);
+        lineChart.setData(lineData);
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float v, AxisBase axisBase) {
+                return new SimpleDateFormat("dd/MM").format(interconsultas.get((int) v).getFecha());
+            }
+        });
+        lineChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float v, AxisBase axisBase) {
+                return "";
+            }
+        });
+        lineChart.getAxisRight().setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float v, AxisBase axisBase) {
+                return "";
+            }
+        });
+        lineChart.getDescription().setText("Signos Vitales");
+
+    }
+
+    public Interconsulta getInterconsulta() {
+        return interconsulta;
+    }
+
+    public void setInterconsulta(Interconsulta interconsulta) {
+        this.interconsulta = interconsulta;
     }
 }

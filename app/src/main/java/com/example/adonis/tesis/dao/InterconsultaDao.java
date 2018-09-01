@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 
 import com.example.adonis.tesis.dto.Interconsulta;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -21,4 +22,9 @@ public interface InterconsultaDao {
 
     @Query("SELECT DISTINCT * FROM interconsulta WHERE interconsulta_id=:interconsulta")
     LiveData<Interconsulta> getInterconsulta(int interconsulta);
+
+    @Query("SELECT DISTINCT * FROM interconsulta " +
+            "WHERE tipo_interconsulta=2 and fecha<=:fecha " +
+            "ORDER BY fecha ASC")
+    LiveData<List<Interconsulta>> getInterconsultaLessDate(Date fecha);
 }

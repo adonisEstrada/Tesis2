@@ -16,7 +16,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="600dp"
+                android:layout_height="800dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/adonis_tesis6" />
 
@@ -130,6 +130,13 @@
                     android:text="16"
                     android:textAlignment="center" />
 
+                <com.github.mikephil.charting.charts.LineChart
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/lineChart"
+                    android:layout_height="300dp">
+
+                </com.github.mikephil.charting.charts.LineChart>
                 <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->

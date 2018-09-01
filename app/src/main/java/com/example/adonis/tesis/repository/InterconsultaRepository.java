@@ -10,6 +10,7 @@ import com.example.adonis.tesis.db.TesisRoomDataBase;
 import com.example.adonis.tesis.dto.Interconsulta;
 import com.example.adonis.tesis.dto.Usuario;
 
+import java.util.Date;
 import java.util.List;
 
 public class InterconsultaRepository {
@@ -31,6 +32,10 @@ public class InterconsultaRepository {
 
     public void insertInterconsulta(Interconsulta interconsulta) {
         new InsertInterconsultaAsyncTask(interconsultaDao).execute(interconsulta);
+    }
+
+    public LiveData<List<Interconsulta>> getInterconsultaLessDate(Date date) {
+        return interconsultaDao.getInterconsultaLessDate(date);
     }
 
     private static class InsertInterconsultaAsyncTask extends AsyncTask<Interconsulta, Void, Void> {

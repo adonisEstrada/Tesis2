@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.example.adonis.tesis.dto.Interconsulta;
 import com.example.adonis.tesis.repository.InterconsultaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public class InterconsultaViewModel extends AndroidViewModel {
@@ -29,5 +30,9 @@ public class InterconsultaViewModel extends AndroidViewModel {
 
     public void insertInterconsulta(Interconsulta interconsulta) {
         interconsultaRepository.insertInterconsulta(interconsulta);
+    }
+
+    public LiveData<List<Interconsulta>> getInterconsultaLessDate(Date date) {
+        return interconsultaRepository.getInterconsultaLessDate(date);
     }
 }
