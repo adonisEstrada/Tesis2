@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,7 +35,9 @@ public class AgregarPacienteActivity extends AppCompatActivity {
     private EditText editTextApellidoPaciente;
     private EditText editTextCedulaPaciente;
     private TextView mensaje;
+    private Button buttonSexo;
     private Date fechaNacimiento;
+    private boolean sexo;
     private ProgressDialog progressDialog;
     private PacienteViewModel pacienteViewModel;
 
@@ -46,6 +49,7 @@ public class AgregarPacienteActivity extends AppCompatActivity {
         editTextNombrePaciente = (EditText) findViewById(R.id.editTextNombrePaciente);
         editTextApellidoPaciente = (EditText) findViewById(R.id.editTextApellidoPaciente);
         editTextCedulaPaciente = (EditText) findViewById(R.id.editTextCedulaPaciente);
+        buttonSexo = (Button) findViewById(R.id.buttonSexo);
         mensaje = (TextView) findViewById(R.id.mensaje);
         progressDialog = new ProgressDialog(this);
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
@@ -65,6 +69,7 @@ public class AgregarPacienteActivity extends AppCompatActivity {
             paciente.setNombre(editTextNombrePaciente.getText().toString());
             paciente.setCedula(editTextCedulaPaciente.getText().toString());
             paciente.setActivo(true);
+            paciente.setSexo(!sexo);
             pacienteViewModel.insertPaciente(paciente);
             hideProgressDialog();
             finish();
@@ -113,5 +118,16 @@ public class AgregarPacienteActivity extends AppCompatActivity {
 
     public void hideProgressDialog() {
         progressDialog.hide();
+    }
+
+    public void buttonSexoSelectHandler(View v) {
+        sexo = !sexo;
+        if (sexo) {
+            buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorMujer));
+            buttonSexo.setText("Mujer");
+        } else {
+            buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorVerdeAnalogo1));
+            buttonSexo.setText("Hombre");
+        }
     }
 }

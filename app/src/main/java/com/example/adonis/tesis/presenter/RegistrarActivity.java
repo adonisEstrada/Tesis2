@@ -4,10 +4,12 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -28,7 +30,8 @@ public class RegistrarActivity extends AppCompatActivity {
     private EditText editTextConfirmeClave;
     private EditText editTextNombreCompleto;
     private EditText editTextCedula;
-    private Switch switchSexo;
+    private Button buttonSexo;
+    private boolean sexo;
 
     private UsuarioViewModel usuarioViewModel;
     private TextView mensaje;
@@ -47,7 +50,7 @@ public class RegistrarActivity extends AppCompatActivity {
         editTextUsuario = (EditText) findViewById(R.id.editTextUsuario);
         editTextNombreCompleto = (EditText) findViewById(R.id.edictTextNombreCompleto);
         editTextCedula = (EditText) findViewById(R.id.editTextCedula);
-        switchSexo = (Switch) findViewById(R.id.switchSexo);
+        buttonSexo = (Button) findViewById(R.id.buttonSexo);
 
         usuarioViewModel = ViewModelProviders.of(this).get(UsuarioViewModel.class);
     }
@@ -125,9 +128,22 @@ public class RegistrarActivity extends AppCompatActivity {
             usuario.setEspecialidad(editTextEspecialidad.getText().toString());
             usuario.setEspecialidadPersonal(editTextEspecialidadPersonal.getText().toString());
             usuario.setNombre(editTextUsuario.getText().toString());
-            usuario.setSexo(!switchSexo.isChecked());
+            usuario.setSexo(!sexo);
             usuarioViewModel.insert(usuario);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
+        }
+    }
+
+    public void buttonSexoSelectHandler(View v) {
+        sexo = !sexo;
+        if (sexo) {
+            buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorMujer));
+            buttonSexo.setText("Mujer");
+        } else {
+            buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorVerdeAnalogo1));
+            buttonSexo.setText("Hombre");
         }
     }
 }

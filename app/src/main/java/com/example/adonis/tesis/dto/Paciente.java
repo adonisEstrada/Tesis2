@@ -21,21 +21,23 @@ public class Paciente {
     @NonNull
     @ColumnInfo(name = "paciente_id")
     private int pacienteId;
-
     private String nombre;
     private String apellido;
     private String cedula;
-//    private String cama;
-//    private String descripcionAtencion;
-//    private String edad;
-
+    private boolean sexo;
     @ColumnInfo(name = "fecha_ingreso")
     private Date fechaIngreso;
-
     @ColumnInfo(name = "usuario_id")
     private int usuario;
-
     private boolean activo;
+
+    public boolean isSexo() {
+        return sexo;
+    }
+
+    public void setSexo(boolean sexo) {
+        this.sexo = sexo;
+    }
 
     public boolean isActivo() {
         return activo;

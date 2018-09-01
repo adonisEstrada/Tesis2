@@ -33,6 +33,10 @@ public class PacienteRepository {
         return pacienteDao.getPaciente(paciente);
     }
 
+    public LiveData<List<Paciente>> getPacientes(String search) {
+        return pacienteDao.getPacientes(search);
+    }
+
     private static class insertPacienteAsyncTask extends AsyncTask<Paciente, Void, Void> {
 
         private PacienteDao pacienteDao;

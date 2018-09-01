@@ -10,20 +10,20 @@ import com.example.adonis.tesis.repository.SignoVitalRepository;
 
 import java.util.List;
 
-public class SignoVitalViewModel extends AndroidViewModel {
+public class SignoVitalViewModel  {
 
-    SignoVitalRepository signoVitalRepository;
-
-    public SignoVitalViewModel(@NonNull Application application) {
-        super(application);
-        signoVitalRepository = new SignoVitalRepository(application);
-    }
-
-    public LiveData<SignoVital> getSignoVitales(int interconsulta) {
-        return signoVitalRepository.getSignoVitales(interconsulta);
-    }
-
-    public void insertSignoVital(SignoVital signoVital) {
-        signoVitalRepository.insertSignoVital(signoVital);
-    }
+//    SignoVitalRepository signoVitalRepository;
+//
+//    public SignoVitalViewModel(@NonNull Application application) {
+//        super(application);
+//        signoVitalRepository = new SignoVitalRepository(application);
+//    }
+//
+//    public LiveData<SignoVital> getSignoVitales(int interconsulta) {
+//        return signoVitalRepository.getSignoVitales(interconsulta);
+//    }
+//
+//    public void insertSignoVital(SignoVital signoVital) {
+//        signoVitalRepository.insertSignoVital(signoVital);
+//    }
 }

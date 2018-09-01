@@ -18,4 +18,7 @@ public interface InterconsultaDao {
 
     @Query("SELECT DISTINCT * FROM interconsulta WHERE paciente=:paciente AND activo = 1 ORDER BY fecha DESC")
     LiveData<List<Interconsulta>> getInterconsultaByPaciente(int paciente);
+
+    @Query("SELECT DISTINCT * FROM interconsulta WHERE interconsulta_id=:interconsulta")
+    LiveData<Interconsulta> getInterconsulta(int interconsulta);
 }

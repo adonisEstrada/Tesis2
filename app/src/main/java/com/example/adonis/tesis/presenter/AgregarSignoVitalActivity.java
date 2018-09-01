@@ -32,7 +32,7 @@ public class AgregarSignoVitalActivity extends AppCompatActivity {
 
     private PacienteViewModel pacienteViewModel;
     private InterconsultaViewModel interconsultaViewModel;
-    private SignoVitalViewModel signoVitalViewModel;
+//    private SignoVitalViewModel signoVitalViewModel;
 
     private EditText editTextFrecuenciaCardiaca;
     private EditText editTextTemperatura;
@@ -66,15 +66,20 @@ public class AgregarSignoVitalActivity extends AppCompatActivity {
         spinnerTemperatura = (Spinner) findViewById(R.id.spinnerTemperatura);
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
         interconsultaViewModel = ViewModelProviders.of(this).get(InterconsultaViewModel.class);
-        signoVitalViewModel = ViewModelProviders.of(this).get(SignoVitalViewModel.class);
+//        signoVitalViewModel = ViewModelProviders.of(this).get(SignoVitalViewModel.class);
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter
                 .createFromResource(this, R.array.temperature,
                         android.R.layout.simple_spinner_item);
         spinnerTemperatura.setAdapter(spinnerAdapter);
-        spinnerTemperatura.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnerTemperatura.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 setTipoTemperatura(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -124,7 +129,6 @@ public class AgregarSignoVitalActivity extends AppCompatActivity {
             interconsulta.setDescripcion("Signo Vital");
             interconsulta.setFecha(new Date());
             interconsulta.setTipoInterconsulta(Constantes.TIPO_INTERCONSULTA_SIGNO_VITAL);
-            interconsultaViewModel.insertInterconsulta(interconsulta);
             SignoVital signoVital = new SignoVital();
             signoVital.setDiatolica(Integer.valueOf(editTextDiastolica.getText().toString()));
             signoVital.setSistolica(Integer.valueOf(editTextSistolica.getText().toString()));
@@ -134,7 +138,9 @@ public class AgregarSignoVitalActivity extends AppCompatActivity {
                     Integer.valueOf(editTextFrecuenciaCardiaca.getText().toString()));
             signoVital.setTemperatura(Float.valueOf(editTextTemperatura.getText().toString()));
             signoVital.setTipoTemperatura(tipoTemperatura);
-            signoVitalViewModel.insertSignoVital(signoVital);
+//            signoVitalViewModel.insertSignoVital(signoVital);
+            interconsulta.setSignoVital(signoVital);
+            interconsultaViewModel.insertInterconsulta(interconsulta);
             finish();
         } else {
             mensaje.setText("Todos los campos son obligatorios");

@@ -12,25 +12,26 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity(foreignKeys = @ForeignKey(entity = Interconsulta.class,
-        parentColumns = "interconsulta_id",
-        childColumns = "signo_vital_id"))
+//@Entity(foreignKeys = @ForeignKey(entity = Interconsulta.class,
+//        parentColumns = "interconsulta_id",
+//        childColumns = "interconsulta_id"))
+@Entity
 public class SignoVital {
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
+    @PrimaryKey()
+//    @NonNull
     @ColumnInfo(name = "signo_vital_id")
     private int signoVitalId;
+    //    @ColumnInfo(name = "interconsulta_id")
+//    private int interconsulta;
     private Integer peso;
     private Integer diatolica;
     private Integer sistolica;
     private Float temperatura;
-
     /**
      * tipoTemperatura, 0 para centígrados, 1 para Fahrenheit
      */
     private Integer tipoTemperatura;
-
     @ColumnInfo(name = "frecuancia_cardiaca")
     private int frecuenciaCardiaca;
 
@@ -104,4 +105,5 @@ public class SignoVital {
     public void setFrecuenciaCardiaca(int frecuenciaCardiaca) {
         this.frecuenciaCardiaca = frecuenciaCardiaca;
     }
+
 }

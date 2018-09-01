@@ -7,17 +7,18 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(foreignKeys = @ForeignKey(entity = Interconsulta.class,
-        parentColumns = "interconsulta_id",
-        childColumns = "consulta_id"))
+//@Entity(foreignKeys = @ForeignKey(entity = Interconsulta.class,
+//        parentColumns = "interconsulta_id",
+//        childColumns = "consulta_id"))
+@Entity
 public class Consulta {
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
+    @PrimaryKey()
+//    @NonNull
     @ColumnInfo(name = "consulta_id")
     private int consultaId;
 
-    private String descripcion;
+    private String informe;
 
     public int getConsultaId() {
         return consultaId;
@@ -30,11 +31,11 @@ public class Consulta {
     public Consulta() {
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getInforme() {
+        return informe;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setInforme(String informe) {
+        this.informe = informe;
     }
 }

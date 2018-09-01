@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.adonis.tesis.R;
 import com.example.adonis.tesis.adapter.GenericAdapter;
@@ -32,12 +36,15 @@ import util.SessionSettings;
 
 public class ListViewActivity extends AppCompatActivity {
 
-    //    TesisService service = new TesisService();
     private List<Paciente> pacientes;
     private List<Interconsulta> interconsultas;
     private PacienteViewModel pacienteViewModel;
     private InterconsultaViewModel interconsultaViewModel;
     private ImageView imageViewAgregar;
+
+    private EditText editTextSearch;
+    private LinearLayout layoutSearch;
+
     private int paciente;
     private ProgressDialog progressDialog;
     private Object itemSelected;
@@ -52,9 +59,11 @@ public class ListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
         listView = (ListView) findViewById(R.id.listView);
+        editTextSearch = (EditText) findViewById(R.id.editTextSearch);
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
         interconsultaViewModel = ViewModelProviders.of(this).get(InterconsultaViewModel.class);
         imageViewAgregar = (ImageView) findViewById(R.id.imageViewAgregar);
+        layoutSearch = (LinearLayout) findViewById(R.id.layoutSearch);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando... Por favor espere.");
 
@@ -62,6 +71,7 @@ public class ListViewActivity extends AppCompatActivity {
         if (bundle != null) {
             if (bundle.getString("Controlador").equals("pacientes")) {
                 imageViewAgregar.setImageResource(R.mipmap.agregar_paciente_foreground);
+                layoutSearch.setVisibility(View.VISIBLE);
                 showProgressDialog();
                 pacienteViewModel.getPacientes(SessionSettings.getUsuarioIniciado().getUsuarioId()).observe(this, new Observer<List<Paciente>>() {
                     @Override
@@ -79,8 +89,23 @@ public class ListViewActivity extends AppCompatActivity {
                         hideProgressDialog();
                     }
                 });
+//                editTextSearch.setOnKeyListener(new View.OnKeyListener() {
+//                    @Override
+//                    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+//                        buscarPaciente(editTextSearch.getText().toString());
+//                        return false;
+//                    }
+//                });
+//                editTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                    @Override
+//                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                        buscarPaciente(textView.getText().toString());
+//                        return false;
+//                    }
+//                });
             }
             if (bundle.getString("Controlador").equals("interconsulta")) {
+                layoutSearch.setVisibility(View.GONE);
                 if (bundle.getInt("paciente") >= 0) {
                     imageViewAgregar.setImageResource(R.mipmap.agregar_interconsulta_foreground);
                     showProgressDialog();
@@ -103,12 +128,31 @@ public class ListViewActivity extends AppCompatActivity {
                                         preguntarCrearNuevaInterconsulta();
                                     }
                                     hideProgressDialog();
-
                                 }
                             });
                 }
             }
         }
+    }
+
+    public void buscarPaciente(String search) {
+        showProgressDialog();
+        pacienteViewModel.getPaciente("%" + search + "%").observe(this, new Observer<List<Paciente>>() {
+            @Override
+            public void onChanged(@Nullable List<Paciente> pacientes) {
+                List<ItemsListView> adapters = new ArrayList<>();
+                for (Paciente paciente : pacientes) {
+                    adapters.add(new ItemsListView(
+                            paciente.getNombre() + " " + paciente.getApellido(),
+                            paciente.getCedula(),
+                            Converters.getEdad(paciente.getFechaIngreso())));
+                }
+                setIsPaciente(true);
+                setListAdapter(adapters);
+                setListPacientes(pacientes);
+                hideProgressDialog();
+            }
+        });
     }
 
     public void setListAdapter(List<ItemsListView> adapters) {
@@ -136,15 +180,14 @@ public class ListViewActivity extends AppCompatActivity {
                     }
                     if (getInterconsultas().get(i).getTipoInterconsulta()
                             == Constantes.TIPO_INTERCONSULTA_SIGNO_VITAL) {
-
+                        intentInterconsulta = new Intent(getApplicationContext(),
+                                SignosVitalesActivity.class);
                     }
                     if (intentInterconsulta != null) {
                         intentInterconsulta.putExtra("interconsulta",
                                 getInterconsultas().get(i).getInterconsultaId());
                         intentInterconsulta.putExtra("paciente",
                                 getInterconsultas().get(i).getPaciente());
-                    }
-                    if (intentInterconsulta != null) {
                         startActivity(intentInterconsulta);
                     }
                 }
@@ -320,5 +363,9 @@ public class ListViewActivity extends AppCompatActivity {
 
     public void hideProgressDialog() {
         progressDialog.hide();
+    }
+
+    public void buttonSearchSelectHandler(View v) {
+        buscarPaciente(editTextSearch.getText().toString());
     }
 }

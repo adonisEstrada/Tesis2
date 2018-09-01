@@ -132,15 +132,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:labelFor="@id/switchSexo"
+                    android:labelFor="@id/buttonSexo"
                     android:text="Sexualidad" />
 
-                <Switch
-                    android:id="@+id/switchSexo"
+                <Button
+                    android:id="@+id/buttonSexo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textOff="Hombre"
-                    android:textOn="Mujer" />
+                    android:textColor="@color/colorVerdeSombra5"
+                    android:background="@color/colorVerdeAnalogo1"
+                    android:onClick="buttonSexoSelectHandler"
+                    android:text="Hombre" />
+
+                <!--<Switch-->
+                <!--android:id="@+id/switchSexo"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textOff="Hombre"-->
+                <!--android:textOn="Mujer" />-->
             </LinearLayout>
 
         </RelativeLayout>

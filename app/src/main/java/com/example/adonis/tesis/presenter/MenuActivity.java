@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.example.adonis.tesis.R;
 import com.example.adonis.tesis.dto.SignoVital;
 import com.example.adonis.tesis.dto.Usuario;
 import com.example.adonis.tesis.presenter.AcercaDeActivity;
 import com.example.adonis.tesis.presenter.ListViewActivity;
+
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import util.SessionSettings;
 
@@ -51,7 +55,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void aprenderButtonHandler(View v) {
-
+//        MyClass myClass = new MyClass();
+//        myClass.generarReporte();
     }
 
     public void pacienteButtonHandler(View v) {

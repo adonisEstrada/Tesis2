@@ -27,6 +27,15 @@ public class PacienteViewModel extends AndroidViewModel {
         return pacienteRepository.getPaciente(paciente);
     }
 
+    /**
+     * busca paciente por nombre, apellido y cedula
+     * @param search String a buscar
+     * @return lista de pacientes
+     */
+    public LiveData<List<Paciente>> getPaciente(String search){
+        return pacienteRepository.getPacientes(search);
+    }
+
     public void insertPaciente(Paciente paciente) {
         pacienteRepository.insertPaciente(paciente);
     }

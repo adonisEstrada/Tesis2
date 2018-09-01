@@ -22,6 +22,12 @@ public interface PacienteDao {
     @Query("SELECT DISTINCT * FROM paciente WHERE paciente.paciente_id=:paciente")
     LiveData<Paciente> getPaciente(int paciente);
 
+    @Query("SELECT DISTINCT * FROM paciente WHERE " +
+            "nombre like :search " +
+            "or apellido like :search " +
+            "or cedula like :search")
+    LiveData<List<Paciente>> getPacientes(String search);
+
 //    public List<Paciente> getPacientes() {
 //
 ////        AsyncTask<Paciente, Integer, List<Paciente>> obtenerPacientes =

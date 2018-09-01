@@ -27,7 +27,7 @@ public class AgregarConsultaActivity extends AppCompatActivity {
 
     private PacienteViewModel pacienteViewModel;
     private InterconsultaViewModel interconsultaViewModel;
-    private ConsultaViewModel consultaViewModel;
+//    private ConsultaViewModel consultaViewModel;
     private TextView textViewPaciente;
     private TextView textViewEdad;
     private TextView mensaje;
@@ -45,7 +45,7 @@ public class AgregarConsultaActivity extends AppCompatActivity {
         editTextInforme = (EditText) findViewById(R.id.editTextInforme);
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
         interconsultaViewModel = ViewModelProviders.of(this).get(InterconsultaViewModel.class);
-        consultaViewModel = ViewModelProviders.of(this).get(ConsultaViewModel.class);
+//        consultaViewModel = ViewModelProviders.of(this).get(ConsultaViewModel.class);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando... Por favor espere.");
         Bundle bundle = getIntent().getExtras();
@@ -81,10 +81,12 @@ public class AgregarConsultaActivity extends AppCompatActivity {
             interconsulta.setPaciente(paciente.getPacienteId());
             interconsulta.setFecha(new Date());
             interconsulta.setActivo(true);
-            interconsultaViewModel.insertInterconsulta(interconsulta);
             Consulta consulta = new Consulta();
-            consulta.setDescripcion(editTextInforme.getText().toString());
-            consultaViewModel.insertConsulta(consulta);
+            consulta.setInforme(editTextInforme.getText().toString());
+            interconsulta.setConsulta(consulta);
+            interconsultaViewModel.insertInterconsulta(interconsulta);
+
+//            consultaViewModel.insertConsulta(consulta);
             finish();
         } else {
             mensaje.setText("El campo no debe estar vacío");

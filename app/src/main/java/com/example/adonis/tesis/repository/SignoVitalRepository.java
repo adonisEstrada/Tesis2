@@ -14,32 +14,32 @@ import java.util.List;
 
 public class SignoVitalRepository {
 
-    private SignoVitalDao signoVitalDao;
-
-    public SignoVitalRepository(Application application) {
-        TesisRoomDataBase tesisRoomDataBase = TesisRoomDataBase.getDatabase(application);
-        signoVitalDao = tesisRoomDataBase.signoVitalDao();
-    }
-
-    public LiveData<SignoVital> getSignoVitales(int interconsulta) {
-        return signoVitalDao.getSignoVitales(interconsulta);
-    }
-
-    public void insertSignoVital(SignoVital signoVital) {
-        new InsertSignoVitalAsyncTask(signoVitalDao).equals(signoVital);
-    }
-
-    private static class InsertSignoVitalAsyncTask extends AsyncTask<SignoVital, Void, Void> {
-        private SignoVitalDao signoVitalDao;
-
-        public InsertSignoVitalAsyncTask(SignoVitalDao signoVitalDao) {
-            this.signoVitalDao = signoVitalDao;
-        }
-
-        @Override
-        protected Void doInBackground(SignoVital... signoVitals) {
-            signoVitalDao.insert(signoVitals[0]);
-            return null;
-        }
-    }
+//    private SignoVitalDao signoVitalDao;
+//
+//    public SignoVitalRepository(Application application) {
+//        TesisRoomDataBase tesisRoomDataBase = TesisRoomDataBase.getDatabase(application);
+//        signoVitalDao = tesisRoomDataBase.signoVitalDao();
+//    }
+//
+//    public LiveData<SignoVital> getSignoVitales(int interconsulta) {
+//        return signoVitalDao.getSignoVitales(interconsulta);
+//    }
+//
+//    public void insertSignoVital(SignoVital signoVital) {
+//        new InsertSignoVitalAsyncTask(signoVitalDao).equals(signoVital);
+//    }
+//
+//    private static class InsertSignoVitalAsyncTask extends AsyncTask<SignoVital, Void, Void> {
+//        private SignoVitalDao signoVitalDao;
+//
+//        public InsertSignoVitalAsyncTask(SignoVitalDao signoVitalDao) {
+//            this.signoVitalDao = signoVitalDao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(SignoVital... signoVitals) {
+//            signoVitalDao.insert(signoVitals[0]);
+//            return null;
+//        }
+//    }
 }

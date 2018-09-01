@@ -23,6 +23,10 @@ public class InterconsultaViewModel extends AndroidViewModel {
         return interconsultaRepository.getInterconsultas(paciente);
     }
 
+    public LiveData<Interconsulta> getInterconsulta(int interconsulta) {
+        return interconsultaRepository.getInterconsulta(interconsulta);
+    }
+
     public void insertInterconsulta(Interconsulta interconsulta) {
         interconsultaRepository.insertInterconsulta(interconsulta);
     }

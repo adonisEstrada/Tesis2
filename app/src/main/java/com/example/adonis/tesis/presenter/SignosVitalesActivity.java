@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.adonis.tesis.R;
+import com.example.adonis.tesis.dto.Interconsulta;
 import com.example.adonis.tesis.dto.Paciente;
 import com.example.adonis.tesis.dto.SignoVital;
 import com.example.adonis.tesis.viewmodel.InterconsultaViewModel;
@@ -21,8 +22,8 @@ import util.Converters;
 public class SignosVitalesActivity extends AppCompatActivity {
 
     private PacienteViewModel pacienteViewModel;
-    private SignoVitalViewModel signoVitalViewModel;
-
+    //    private SignoVitalViewModel signoVitalViewModel;
+    private InterconsultaViewModel interconsultaViewModel;
     private TextView textViewPaciente;
     private TextView textViewFrecuenciaCardiaca;
     private TextView textViewFrecuenciaRespiratoria;
@@ -45,8 +46,9 @@ public class SignosVitalesActivity extends AppCompatActivity {
         textViewTemperatura = (TextView) findViewById(R.id.textViewTemperatura);
         textViewSistolica = (TextView) findViewById(R.id.textViewSistolica);
         textViewDiastolica = (TextView) findViewById(R.id.textViewDiastolica);
+        textViewEdad = (TextView) findViewById(R.id.textViewEdad);
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
-        signoVitalViewModel = ViewModelProviders.of(this).get(SignoVitalViewModel.class);
+        interconsultaViewModel = ViewModelProviders.of(this).get(InterconsultaViewModel.class);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando... Por favor espere.");
         Bundle bundle = getIntent().getExtras();
@@ -64,17 +66,17 @@ public class SignosVitalesActivity extends AppCompatActivity {
                         }
                     });
             int interconsulta = bundle.getInt("interconsulta");
-            signoVitalViewModel.getSignoVitales(interconsulta).observe(
-                    this, new Observer<SignoVital>() {
+            interconsultaViewModel.getInterconsulta(interconsulta).observe(
+                    this, new Observer<Interconsulta>() {
                         @Override
-                        public void onChanged(@Nullable SignoVital signoVital) {
-                            if (signoVital != null) {
-                                setSignoVital(signoVital);
+                        public void onChanged(@Nullable Interconsulta interconsulta) {
+                            if (interconsulta != null
+                                    && interconsulta.getSignoVital() != null) {
+                                setSignoVital(interconsulta.getSignoVital());
                             }
                         }
                     }
             );
-
         }
     }
 
@@ -102,15 +104,20 @@ public class SignosVitalesActivity extends AppCompatActivity {
         int fr = signoVital.getFecuenciaRespiratoria();
         int colorRojo = getResources().getColor(R.color.colorRojo);
         int colorAzul = getResources().getColor(R.color.colorVerdeAnalogo3);
+        int colorGris = getResources().getColor(R.color.colorVerdeTono7);
         if (sistole > 130) {
             textViewSistolica.setTextColor(colorRojo);
         } else if (sistole < 100) {
             textViewSistolica.setTextColor(colorAzul);
+        } else {
+            textViewSistolica.setTextColor(colorGris);
         }
         if (diastole > 96) {
             textViewDiastolica.setTextColor(colorRojo);
         } else if (diastole < 70) {
             textViewDiastolica.setTextColor(colorAzul);
+        } else {
+            textViewDiastolica.setTextColor(colorGris);
         }
         if ((temperatura > 37 && tipoTemperatura == 0)
                 || (temperatura > 98.6 && tipoTemperatura == 1)) {
@@ -118,21 +125,27 @@ public class SignosVitalesActivity extends AppCompatActivity {
         } else if ((temperatura < 36 && tipoTemperatura == 0)
                 || (temperatura < 96.8 && tipoTemperatura == 1)) {
             textViewTemperatura.setTextColor(colorAzul);
+        } else {
+            textViewTemperatura.setTextColor(colorGris);
         }
         if (fc > 100) {
             textViewFrecuenciaCardiaca.setTextColor(colorRojo);
         } else if (fc < 60) {
             textViewFrecuenciaCardiaca.setTextColor(colorAzul);
+        } else {
+            textViewFrecuenciaCardiaca.setTextColor(colorGris);
         }
         if (fr > 12) {
             textViewFrecuenciaRespiratoria.setTextColor(colorRojo);
         } else if (fr < 19) {
             textViewFrecuenciaRespiratoria.setTextColor(colorAzul);
+        } else {
+            textViewFrecuenciaRespiratoria.setTextColor(colorGris);
         }
-        textViewFrecuenciaRespiratoria.setText(fr);
-        textViewFrecuenciaCardiaca.setText(fc);
-        textViewTemperatura.setText(String.valueOf(temperatura));
-        textViewDiastolica.setText(diastole);
-        textViewSistolica.setText(sistole);
+        textViewFrecuenciaRespiratoria.setText(fr+"");
+        textViewFrecuenciaCardiaca.setText(fc+"");
+        textViewTemperatura.setText(String.valueOf(temperatura) + (tipoTemperatura == 0 ? " °C" : " °F"));
+        textViewDiastolica.setText(diastole+"");
+        textViewSistolica.setText(sistole+"");
     }
 }

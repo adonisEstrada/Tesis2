@@ -1,6 +1,7 @@
 package com.example.adonis.tesis.dto;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
@@ -17,17 +18,35 @@ public class Interconsulta {
     @NonNull
     @ColumnInfo(name = "interconsulta_id")
     private int interconsultaId;
-
     private int paciente;
-    //    private Date fecha;
     private String descripcion;
-
     @ColumnInfo(name = "tipo_interconsulta")
     private int tipoInterconsulta;
-
     private Date fecha;
-
     private boolean activo;
+
+    @Embedded
+    private Consulta consulta;
+
+    @Embedded
+    private SignoVital signoVital;
+
+
+    public Consulta getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
+    }
+
+    public SignoVital getSignoVital() {
+        return signoVital;
+    }
+
+    public void setSignoVital(SignoVital signoVital) {
+        this.signoVital = signoVital;
+    }
 
     public boolean isActivo() {
         return activo;

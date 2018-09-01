@@ -1,0 +1,18 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/commons-beanutils-1.9.3.jar')
+    implementation files('libs/commons-collections-3.2.2.jar')
+    implementation files('libs/commons-digester-2.1.jar')
+    implementation files('libs/commons-logging-1.1.1.jar')
+    implementation files('libs/itext-2.1.7.jar')
+    implementation files('libs/itext-pdfa-5.5.0.jar')
+    implementation files('libs/itextpdf-5.5.0.jar')
+    implementation files('libs/jasperreports-6.7.0.jar')
+    implementation files('libs/jasperreports-fonts-6.7.0.jar')
+    implementation files('libs/jasperreports-javaflow-6.7.0.jar')
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

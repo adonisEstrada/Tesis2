@@ -25,6 +25,10 @@ public class InterconsultaRepository {
         return interconsultaDao.getInterconsultaByPaciente(paciente);
     }
 
+    public LiveData<Interconsulta> getInterconsulta(int interconsulta) {
+        return interconsultaDao.getInterconsulta(interconsulta);
+    }
+
     public void insertInterconsulta(Interconsulta interconsulta) {
         new InsertInterconsultaAsyncTask(interconsultaDao).execute(interconsulta);
     }
