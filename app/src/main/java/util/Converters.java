@@ -31,7 +31,8 @@ public class Converters {
         if (month == 0) {
             month = 12;
         }
-        if (hoy.get(Calendar.DAY_OF_MONTH) < cumple.get(Calendar.DAY_OF_MONTH)) {
+        if ((hoy.get(Calendar.DAY_OF_MONTH) < cumple.get(Calendar.DAY_OF_MONTH))
+                && hoy.get(Calendar.MONTH) == cumple.get(Calendar.MONTH)) {
             month = month - 1;
             year = year - 1;
         }
