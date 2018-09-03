@@ -10,7 +10,10 @@ import com.example.adonis.tesis.db.TesisRoomDataBase;
 import com.example.adonis.tesis.dto.Paciente;
 import com.example.adonis.tesis.dto.Usuario;
 
+import java.util.Date;
 import java.util.List;
+
+import util.SessionSettings;
 
 public class PacienteRepository {
 
@@ -34,7 +37,11 @@ public class PacienteRepository {
     }
 
     public LiveData<List<Paciente>> getPacientes(String search) {
-        return pacienteDao.getPacientes(search);
+        return pacienteDao.getPacientes("%" + search + "%", SessionSettings.getUsuarioIniciado().getUsuarioId());
+    }
+
+    public LiveData<List<Paciente>> getPacientes(Date fechaDesde, Date fechaHasta) {
+        return pacienteDao.getPacientes(fechaDesde, fechaHasta, SessionSettings.getUsuarioIniciado().getUsuarioId());
     }
 
     private static class insertPacienteAsyncTask extends AsyncTask<Paciente, Void, Void> {

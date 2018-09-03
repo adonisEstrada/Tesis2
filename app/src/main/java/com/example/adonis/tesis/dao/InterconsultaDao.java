@@ -24,7 +24,9 @@ public interface InterconsultaDao {
     LiveData<Interconsulta> getInterconsulta(int interconsulta);
 
     @Query("SELECT DISTINCT * FROM interconsulta " +
-            "WHERE tipo_interconsulta=2 and fecha<=:fecha " +
+            "WHERE tipo_interconsulta=2 " +
+            "AND fecha<=:fecha " +
+            "AND paciente=:paciente " +
             "ORDER BY fecha ASC")
-    LiveData<List<Interconsulta>> getInterconsultaLessDate(Date fecha);
+    LiveData<List<Interconsulta>> getInterconsultaLessDate(Date fecha, int paciente);
 }

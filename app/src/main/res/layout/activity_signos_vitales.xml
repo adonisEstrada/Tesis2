@@ -18,6 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="800dp"
                 android:scaleType="centerCrop"
+                android:alpha="0.6"
                 android:src="@drawable/adonis_tesis6" />
 
             <LinearLayout
@@ -130,13 +131,24 @@
                     android:text="16"
                     android:textAlignment="center" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:layout_marginTop="30dp"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:id="@+id/lineChart"
-                    android:layout_height="300dp">
+                    android:layout_marginTop="30dp"
+                    android:layout_height="wrap_content">
 
-                </com.github.mikephil.charting.charts.LineChart>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:background="@color/colorVerdeSombra7"
+                        android:alpha="0.7"
+                        android:layout_height="275dp" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp">
+
+                    </com.github.mikephil.charting.charts.LineChart>
+                </RelativeLayout>
                 <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->

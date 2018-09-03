@@ -34,8 +34,8 @@ public class InterconsultaRepository {
         new InsertInterconsultaAsyncTask(interconsultaDao).execute(interconsulta);
     }
 
-    public LiveData<List<Interconsulta>> getInterconsultaLessDate(Date date) {
-        return interconsultaDao.getInterconsultaLessDate(date);
+    public LiveData<List<Interconsulta>> getInterconsultaLessDate(Date date, int paciente) {
+        return interconsultaDao.getInterconsultaLessDate(date, paciente);
     }
 
     private static class InsertInterconsultaAsyncTask extends AsyncTask<Interconsulta, Void, Void> {

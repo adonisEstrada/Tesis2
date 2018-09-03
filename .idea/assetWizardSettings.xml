@@ -33,8 +33,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../../Imágenes/material tesis/agregar_interconsulta.png" />
-                                      <entry key="outputName" value="agregar_interconsulta" />
+                                      <entry key="backgroundLayerName" value="reporte_background" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../../Imágenes/material tesis/reporte.png" />
+                                      <entry key="foregroundLayerName" value="reporte_foreground" />
+                                      <entry key="outputName" value="reporte_interconsulta" />
                                     </map>
                                   </option>
                                 </PersistentState>

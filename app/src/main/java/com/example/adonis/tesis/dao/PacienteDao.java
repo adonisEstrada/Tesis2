@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 
 import com.example.adonis.tesis.dto.Paciente;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -23,10 +24,17 @@ public interface PacienteDao {
     LiveData<Paciente> getPaciente(int paciente);
 
     @Query("SELECT DISTINCT * FROM paciente WHERE " +
-            "nombre like :search " +
-            "or apellido like :search " +
-            "or cedula like :search")
-    LiveData<List<Paciente>> getPacientes(String search);
+            "usuario_id=:usuario " +
+            "AND (nombre LIKE :search " +
+            "OR apellido LIKE :search " +
+            "OR cedula LIKE :search) ")
+    LiveData<List<Paciente>> getPacientes(String search, int usuario);
+
+    @Query("SELECT DISTINCT * FROM paciente " +
+            "WHERE fecha>:fechaDesde " +
+            "AND fecha<:fechaHasta " +
+            "AND usuario_id=:usuario ")
+    LiveData<List<Paciente>> getPacientes(Date fechaDesde, Date fechaHasta, int usuario);
 
 //    public List<Paciente> getPacientes() {
 //

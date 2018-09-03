@@ -130,7 +130,8 @@ public class SignosVitalesActivity extends AppCompatActivity {
     }
 
     public void setInterconsultaForInterconsultaLessDate(Interconsulta interconsulta) {
-        interconsultaViewModel.getInterconsultaLessDate(interconsulta != null ? interconsulta.getFecha() : new Date()).observe(
+        interconsultaViewModel.getInterconsultaLessDate(interconsulta != null
+                ? interconsulta.getFecha() : new Date(), interconsulta.getPaciente()).observe(
                 this, new Observer<List<Interconsulta>>() {
                     @Override
                     public void onChanged(@Nullable List<Interconsulta> interconsultas) {
@@ -224,12 +225,16 @@ public class SignosVitalesActivity extends AppCompatActivity {
         }
         LineDataSet lineDataSetSistolica = new LineDataSet(valoresSistolica, "Sistólica");
         lineDataSetSistolica.setColor(getResources().getColor(R.color.colorMujer));
+        lineDataSetSistolica.setCircleColor(getResources().getColor(R.color.colorVerdeAnalogo5));
         LineDataSet lineDataSetDiastolica = new LineDataSet(valoresDiastolica, "Diastólica");
         lineDataSetDiastolica.setColor(getResources().getColor(R.color.colorVerdeTriadico2));
+        lineDataSetDiastolica.setCircleColor(getResources().getColor(R.color.colorVerdeTinte5));
         LineDataSet lineDataSetFC = new LineDataSet(valoresFC, "FC");
-        lineDataSetFC.setColor(getResources().getColor(R.color.colorVerdeAnalogo2));
+        lineDataSetFC.setColor(getResources().getColor(R.color.colorVerdeAnalogo1));
+        lineDataSetFC.setCircleColor(getResources().getColor(R.color.colorVerdeAnalogo1));
         LineDataSet lineDataSetFR = new LineDataSet(valoresFR, "FR");
-        lineDataSetFR.setColor(getResources().getColor(R.color.colorVerdeSombra4));
+        lineDataSetFR.setColor(getResources().getColor(R.color.colorVerdeTinte1));
+        lineDataSetFR.setCircleColor(getResources().getColor(R.color.colorVerdeTinte5));
         LineData lineData = new LineData(lineDataSetDiastolica,
                 lineDataSetSistolica,
                 lineDataSetFC,
@@ -242,18 +247,16 @@ public class SignosVitalesActivity extends AppCompatActivity {
                 return new SimpleDateFormat("dd/MM").format(interconsultas.get((int) v).getFecha());
             }
         });
-        lineChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float v, AxisBase axisBase) {
-                return "";
-            }
-        });
         lineChart.getAxisRight().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float v, AxisBase axisBase) {
                 return "";
             }
         });
+        lineChart.getXAxis().setTextColor(getResources().getColor(R.color.colorVerdeTinte7));
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.colorVerdeTinte7));
+        lineChart.getLineData().setValueTextColor(getResources().getColor(R.color.colorVerdeTinte7));
+        lineChart.getDescription().setTextColor(getResources().getColor(R.color.colorVerdeTinte7));
         lineChart.getDescription().setText("Signos Vitales");
 
     }

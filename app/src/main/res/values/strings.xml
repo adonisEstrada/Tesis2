@@ -20,4 +20,7 @@
     DAOs, Service, POJOs, representando el patrón de diseño MVP.</string>
     <string name="text_description_acerca_de_developer_description">Diseñador y desarrollador</string>
     <string name="text_description_acerca_de_developer_name">Adonis Estrada</string>
+    <string name="text_reporte_title">Reporte</string>
+    <string name="text_reporte_description">Generará un reporte de pacientes atendidos en un determinado tiempo</string>
+
 </resources>

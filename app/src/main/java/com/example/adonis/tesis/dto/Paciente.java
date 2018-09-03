@@ -30,6 +30,24 @@ public class Paciente {
     @ColumnInfo(name = "usuario_id")
     private int usuario;
     private boolean activo;
+    private Date fecha;
+    private Date fechaAtendido;
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Date getFechaAtendido() {
+        return fechaAtendido;
+    }
+
+    public void setFechaAtendido(Date fechaAtendido) {
+        this.fechaAtendido = fechaAtendido;
+    }
 
     public boolean isSexo() {
         return sexo;

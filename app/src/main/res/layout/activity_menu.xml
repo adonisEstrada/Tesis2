@@ -129,6 +129,48 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
+                        android:onClick="reporteButtonSelectHandler"
+                        android:clickable="true"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:scaleType="center"
+                            android:src="@mipmap/reporte_foreground" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:orientation="vertical"
+                            android:weightSum="10">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_margin="2dp"
+                                android:layout_weight="3"
+                                android:text="@string/text_reporte_title"
+                                android:textColor="@color/colorVerdeSombra5"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="7"
+                                android:text="@string/text_reporte_description"
+                                android:textColor="@color/colorVerdeTono7"
+                                android:textSize="15dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:onClick="aprenderButtonHandler"
                         android:orientation="horizontal"

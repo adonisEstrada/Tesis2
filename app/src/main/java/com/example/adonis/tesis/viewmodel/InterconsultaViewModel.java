@@ -32,7 +32,7 @@ public class InterconsultaViewModel extends AndroidViewModel {
         interconsultaRepository.insertInterconsulta(interconsulta);
     }
 
-    public LiveData<List<Interconsulta>> getInterconsultaLessDate(Date date) {
-        return interconsultaRepository.getInterconsultaLessDate(date);
+    public LiveData<List<Interconsulta>> getInterconsultaLessDate(Date date, int paciente) {
+        return interconsultaRepository.getInterconsultaLessDate(date, paciente);
     }
 }

@@ -107,6 +107,7 @@ public abstract class TesisRoomDataBase extends RoomDatabase {
             paciente.setCedula("8269873");
 //            paciente.setEdad("48 años");
             paciente.setUsuario(1);
+            paciente.setFecha(new Date());
             paciente.setSexo(true);
             Calendar edadPaciente1 = Calendar.getInstance();
             edadPaciente1.set(1965, 9, 25);
@@ -120,6 +121,7 @@ public abstract class TesisRoomDataBase extends RoomDatabase {
             paciente2.setApellido("Mates");
             paciente2.setCedula("8345673");
             paciente2.setUsuario(1);
+            paciente2.setFecha(new Date());
             paciente2.setSexo(true);
             Calendar edadPaciente2 = Calendar.getInstance();
             edadPaciente2.set(1970, 8, 30);

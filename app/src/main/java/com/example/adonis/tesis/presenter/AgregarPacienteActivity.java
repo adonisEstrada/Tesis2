@@ -70,6 +70,7 @@ public class AgregarPacienteActivity extends AppCompatActivity {
             paciente.setCedula(editTextCedulaPaciente.getText().toString());
             paciente.setActivo(true);
             paciente.setSexo(!sexo);
+            paciente.setFecha(new Date());
             pacienteViewModel.insertPaciente(paciente);
             hideProgressDialog();
             finish();

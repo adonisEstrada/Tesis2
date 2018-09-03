@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.example.adonis.tesis.dto.Paciente;
 import com.example.adonis.tesis.repository.PacienteRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public class PacienteViewModel extends AndroidViewModel {
@@ -27,12 +28,17 @@ public class PacienteViewModel extends AndroidViewModel {
         return pacienteRepository.getPaciente(paciente);
     }
 
+    public LiveData<List<Paciente>> getPacientes(Date fechaDesde, Date fechaHasta) {
+        return pacienteRepository.getPacientes(fechaDesde, fechaHasta);
+    }
+
     /**
      * busca paciente por nombre, apellido y cedula
+     *
      * @param search String a buscar
      * @return lista de pacientes
      */
-    public LiveData<List<Paciente>> getPaciente(String search){
+    public LiveData<List<Paciente>> getPaciente(String search) {
         return pacienteRepository.getPacientes(search);
     }
 

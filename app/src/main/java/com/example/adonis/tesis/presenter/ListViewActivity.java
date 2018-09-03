@@ -28,6 +28,7 @@ import com.example.adonis.tesis.viewmodel.PacienteViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import util.Constantes;
@@ -137,7 +138,7 @@ public class ListViewActivity extends AppCompatActivity {
 
     public void buscarPaciente(String search) {
         showProgressDialog();
-        pacienteViewModel.getPaciente("%" + search + "%").observe(this, new Observer<List<Paciente>>() {
+        pacienteViewModel.getPaciente(search).observe(this, new Observer<List<Paciente>>() {
             @Override
             public void onChanged(@Nullable List<Paciente> pacientes) {
                 List<ItemsListView> adapters = new ArrayList<>();
@@ -334,6 +335,7 @@ public class ListViewActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Paciente paciente = (Paciente) itemSelected;
                                 paciente.setActivo(false);
+                                paciente.setFechaAtendido(new Date());
                                 pacienteViewModel.insertPaciente(paciente);
                                 dialogInterface.dismiss();
                             }
