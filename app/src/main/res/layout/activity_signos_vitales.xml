@@ -17,8 +17,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="800dp"
-                android:scaleType="centerCrop"
                 android:alpha="0.6"
+                android:scaleType="centerCrop"
                 android:src="@drawable/adonis_tesis6" />
 
             <LinearLayout
@@ -131,16 +131,25 @@
                     android:text="16"
                     android:textAlignment="center" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Gráfica comparativa de signos vitales"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorVerdeSombra7"
+                    android:textSize="20dp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp">
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:background="@color/colorVerdeSombra7"
+                        android:layout_height="275dp"
                         android:alpha="0.7"
-                        android:layout_height="275dp" />
+                        android:background="@color/colorVerdeSombra7" />
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChart"

@@ -70,7 +70,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Cédula"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="9" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -88,10 +89,10 @@
                     <EditText
                         android:id="@+id/editTextFechaNacimiento"
                         android:layout_width="0dp"
-                        android:textColor="@color/colorVerdeSombra5"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:enabled="false" />
+                        android:enabled="false"
+                        android:textColor="@color/colorVerdeSombra5" />
 
                     <ImageButton
                         android:layout_width="0dp"
@@ -103,6 +104,7 @@
                         android:scaleType="centerInside"
                         android:src="@mipmap/calendario_foreground" />
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,10 +116,10 @@
                     android:id="@+id/buttonSexo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorVerdeSombra5"
                     android:background="@color/colorVerdeAnalogo1"
                     android:onClick="buttonSexoSelectHandler"
-                    android:text="Hombre" />
+                    android:text="Hombre"
+                    android:textColor="@color/colorVerdeSombra5" />
 
                 <!--<DatePicker-->
                 <!--android:id="@+id/calendarViewFechaNacimiento"-->

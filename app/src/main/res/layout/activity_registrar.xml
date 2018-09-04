@@ -100,7 +100,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Cédula"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="9" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -139,10 +140,10 @@
                     android:id="@+id/buttonSexo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorVerdeSombra5"
                     android:background="@color/colorVerdeAnalogo1"
                     android:onClick="buttonSexoSelectHandler"
-                    android:text="Hombre" />
+                    android:text="Hombre"
+                    android:textColor="@color/colorVerdeSombra5" />
 
                 <!--<Switch-->
                 <!--android:id="@+id/switchSexo"-->
