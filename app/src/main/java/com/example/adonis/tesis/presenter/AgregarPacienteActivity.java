@@ -82,7 +82,7 @@ public class AgregarPacienteActivity extends AppCompatActivity {
 
     public void mostrarDatePicker(View v) {
         Calendar fecha = Calendar.getInstance();
-        fecha.set(2000, 1, 1);
+        fecha.set(1999, 2, 11); // cumpleaños de Jhonny
         if (fechaNacimiento != null) {
             fecha.setTime(fechaNacimiento);
         }
