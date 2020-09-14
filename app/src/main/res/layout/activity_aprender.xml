@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorVerdeTinte7">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="800dp"
+        android:scaleType="center"
+        android:src="@drawable/adonis_tesis6" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="Guía de usuario"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="30dp" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/diseno_web" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text1"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning1SelectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_1_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text2"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning2SelectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_2_foreground" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning3selectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_3_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text3"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning4SelectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_4_foreground" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning5selectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_5_foreground" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text4"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning6SelectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_6_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text5"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning7selectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_7_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text6"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text7"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning8SelectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_8_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text8"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning9selectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_9_foreground" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text9"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning10SelectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_10_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text10"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning11selectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_11_foreground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/learning_text11"
+                android:textColor="@color/colorVerdeSombra7"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning12SelectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_12_foreground" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:onClick="imageLearning13selectHandler"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/learning_13_foreground" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorVerdeSombra1"
+                android:onClick="buttonContinuarSelectHandler"
+                android:text="Continuar"
+                android:textColor="@color/colorVerdeTinte5" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

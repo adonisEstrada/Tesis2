@@ -17,24 +17,43 @@ public interface PacienteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Paciente paciente);
 
-    @Query("SELECT DISTINCT * FROM paciente WHERE paciente.usuario_id=:usuario AND paciente.activo=1 ORDER BY nombre ASC")
+    @Query("SELECT DISTINCT * FROM paciente " +
+            "WHERE paciente.usuario_id=:usuario " +
+            "AND paciente.activo=1 " +
+            "AND paciente.visible=1 " +
+            "ORDER BY nombre ASC")
     LiveData<List<Paciente>> getPacientes(int usuario);
 
-    @Query("SELECT DISTINCT * FROM paciente WHERE paciente.paciente_id=:paciente")
+    @Query("SELECT DISTINCT * FROM paciente " +
+            "WHERE paciente.paciente_id=:paciente")
     LiveData<Paciente> getPaciente(int paciente);
 
     @Query("SELECT DISTINCT * FROM paciente WHERE " +
             "usuario_id=:usuario " +
             "AND (nombre LIKE :search " +
             "OR apellido LIKE :search " +
-            "OR cedula LIKE :search) ")
-    LiveData<List<Paciente>> getPacientes(String search, int usuario);
+            "OR cedula LIKE :search) " +
+            "AND paciente.visible=1 " +
+            "AND paciente.activo=:atendido")
+    LiveData<List<Paciente>> getPacientes(String search, int usuario, boolean atendido);
 
     @Query("SELECT DISTINCT * FROM paciente " +
             "WHERE fecha>:fechaDesde " +
             "AND fecha<:fechaHasta " +
-            "AND usuario_id=:usuario ")
+            "AND usuario_id=:usuario " +
+            "AND paciente.visible=1 ")
     LiveData<List<Paciente>> getPacientes(Date fechaDesde, Date fechaHasta, int usuario);
+
+    @Query("SELECT DISTINCT * FROM paciente " +
+            "WHERE paciente.usuario_id=:usuario " +
+            "AND paciente.activo=0 " +
+            "AND paciente.visible=1")
+    LiveData<List<Paciente>> getPacienteAtendidos(int usuario);
+
+    @Query("SELECT DISTINCT * FROM paciente " +
+            "WHERE paciente.usuario_id=:usuario " +
+            "AND paciente.visible=1")
+    LiveData<List<Paciente>> getPacietesTodos(int usuario);
 
 //    public List<Paciente> getPacientes() {
 //

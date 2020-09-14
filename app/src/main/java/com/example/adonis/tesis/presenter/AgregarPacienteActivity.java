@@ -3,8 +3,11 @@ package com.example.adonis.tesis.presenter;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +44,8 @@ public class AgregarPacienteActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private PacienteViewModel pacienteViewModel;
 
+    private Paciente paciente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,27 @@ public class AgregarPacienteActivity extends AppCompatActivity {
         mensaje = (TextView) findViewById(R.id.mensaje);
         progressDialog = new ProgressDialog(this);
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
+
+        /**
+         * Validar que el usuario este ingresado
+         */
+        if (SessionSettings.getUsuarioIniciado() == null) {
+            Intent intent = new Intent(this, ValidacionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                pacienteViewModel.getPaciente(bundle.getInt("paciente")).observe(
+                        this, new Observer<Paciente>() {
+                            @Override
+                            public void onChanged(@Nullable Paciente paciente) {
+                                setPaciente(paciente);
+                            }
+                        }
+                );
+            }
+        }
     }
 
     public void buttonGuardarPacienteSelectHandler(View v) {
@@ -61,17 +87,23 @@ public class AgregarPacienteActivity extends AppCompatActivity {
                 && !editTextApellidoPaciente.getText().toString().equals("")
                 && !editTextCedulaPaciente.getText().toString().equals("")
                 && fechaNacimiento != null) {
+            Paciente pacienteAGuardar = null;
 
-            Paciente paciente = new Paciente();
-            paciente.setFechaIngreso(fechaNacimiento);
-            paciente.setUsuario(SessionSettings.getUsuarioIniciado().getUsuarioId());
-            paciente.setApellido(editTextApellidoPaciente.getText().toString());
-            paciente.setNombre(editTextNombrePaciente.getText().toString());
-            paciente.setCedula(editTextCedulaPaciente.getText().toString());
-            paciente.setActivo(true);
-            paciente.setSexo(!sexo);
-            paciente.setFecha(new Date());
-            pacienteViewModel.insertPaciente(paciente);
+            if (paciente != null) {
+                pacienteAGuardar = paciente;
+            } else {
+                pacienteAGuardar = new Paciente();
+            }
+            pacienteAGuardar.setFechaIngreso(fechaNacimiento);
+            pacienteAGuardar.setUsuario(SessionSettings.getUsuarioIniciado().getUsuarioId());
+            pacienteAGuardar.setApellido(editTextApellidoPaciente.getText().toString());
+            pacienteAGuardar.setNombre(editTextNombrePaciente.getText().toString());
+            pacienteAGuardar.setCedula(editTextCedulaPaciente.getText().toString());
+            pacienteAGuardar.setActivo(true);
+            pacienteAGuardar.setSexo(!sexo);
+            pacienteAGuardar.setFecha(new Date());
+            pacienteAGuardar.setVisible(true);
+            pacienteViewModel.insertPaciente(pacienteAGuardar);
             hideProgressDialog();
             finish();
         } else {
@@ -93,16 +125,16 @@ public class AgregarPacienteActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
                 Date date = calendar.getTime();
-                String fecha = new SimpleDateFormat("dd/MM/yyyy").format(date);
-                setEditTextFechaNacimiento(fecha);
-                setFechaNacimiento(date);
+                setEditTextFechaNacimiento(date);
             }
         }, fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH), fecha.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
 
-    public void setEditTextFechaNacimiento(String fecha) {
+    public void setEditTextFechaNacimiento(Date date) {
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(date);
         editTextFechaNacimiento.setText(fecha);
+        setFechaNacimiento(date);
     }
 
     public Date getFechaNacimiento() {
@@ -123,6 +155,10 @@ public class AgregarPacienteActivity extends AppCompatActivity {
 
     public void buttonSexoSelectHandler(View v) {
         sexo = !sexo;
+        setSexo(sexo);
+    }
+
+    private void setSexo(boolean sexo) {
         if (sexo) {
             buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorMujer));
             buttonSexo.setText("Mujer");
@@ -130,5 +166,18 @@ public class AgregarPacienteActivity extends AppCompatActivity {
             buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorVerdeAnalogo1));
             buttonSexo.setText("Hombre");
         }
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+        editTextNombrePaciente.setText(paciente.getNombre());
+        editTextApellidoPaciente.setText(paciente.getApellido());
+        editTextCedulaPaciente.setText(paciente.getCedula());
+        setEditTextFechaNacimiento(paciente.getFechaIngreso());
+        setSexo(!paciente.isSexo());
     }
 }

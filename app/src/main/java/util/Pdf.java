@@ -9,7 +9,10 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.adonis.tesis.R;
+import com.example.adonis.tesis.dto.Consulta;
+import com.example.adonis.tesis.dto.Interconsulta;
 import com.example.adonis.tesis.dto.Paciente;
+import com.example.adonis.tesis.dto.SignoVital;
 import com.example.adonis.tesis.dto.Usuario;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -37,7 +40,8 @@ import java.util.UUID;
 
 public class Pdf {
     private final static String NOMBRE_DIRECTORIO = "Reportes";
-    private final static String NOMBRE_DOCUMENTO = new SimpleDateFormat("dd-MM-yy-HH-mm-ss").format(new Date()) + "Reporte.pdf";
+    private final static String NOMBRE_DOCUMENTO = new SimpleDateFormat("dd-MM-yy-HH-mm-ss").format(new Date()) + "-listado.pdf";
+    private final static String NOMBRE_DOCUMENTO_INFORME = new SimpleDateFormat("dd-MM-yy-HH-mm-ss").format(new Date()) + "-informe-medico.pdf";
     private final static String ETIQUETA_ERROR = "ERROR";
 
     public void generarPdf(Context context, List<Paciente> pacientes) {
@@ -164,6 +168,150 @@ public class Pdf {
         }
     }
 
+    public void generarPdf(Context context, Consulta consulta, Paciente paciente, SignoVital signoVital) {
+        Document documento = new Document();
+
+        try {
+
+            File f = crearFichero(NOMBRE_DOCUMENTO_INFORME);
+
+            FileOutputStream ficheroPdf = new FileOutputStream(
+                    f.getAbsolutePath());
+
+            PdfWriter writer = PdfWriter.getInstance(documento, ficheroPdf);
+
+            HeaderFooter pie = new HeaderFooter(new Phrase(
+                    new Date().toString()), true);
+
+            documento.setFooter(pie);
+
+            // Abrimos el documento.
+            documento.open();
+
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.logo_top);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            Image imagen = Image.getInstance(stream.toByteArray());
+            imagen.scaleToFit(400, 100);
+            documento.add(imagen);
+            // Añadimos un titulo con la fuente por defecto.
+            Usuario usuario = SessionSettings.getUsuarioIniciado();
+
+            Paragraph paragraph = new Paragraph("Informe Médico del "
+                    + (usuario.isSexo() ? "Dr. " : "Dra. ")
+                    + usuario.getNombreCompleto());
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            paragraph.setSpacingAfter(25);
+            documento.add(paragraph);
+
+            PdfPTable headerTabla1 = new PdfPTable(4);
+            headerTabla1.getDefaultCell().setBackgroundColor(new harmony.java.awt.Color(159, 222, 190));
+            headerTabla1.addCell("Paciente");
+            headerTabla1.addCell("Cédula");
+            headerTabla1.addCell("Edad");
+            headerTabla1.addCell("Fecha ingreso");
+            documento.add(headerTabla1);
+
+            PdfPTable informacionPaciente = new PdfPTable(4);
+            informacionPaciente.addCell(paciente.getNombre() + " " + paciente.getApellido());
+            informacionPaciente.addCell(paciente.getCedula());
+            informacionPaciente.addCell(Converters.getEdad(paciente.getFechaIngreso()));
+            informacionPaciente.addCell(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aa").format(paciente.getFecha()));
+            documento.add(informacionPaciente);
+
+            if (signoVital != null) {
+                PdfPTable headerSignos = new PdfPTable(1);
+                headerSignos.getDefaultCell().setBackgroundColor(new harmony.java.awt.Color(159, 222, 190));
+                headerSignos.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                headerSignos.addCell("SignosVitales");
+                documento.add(headerSignos);
+                PdfPTable tableSignosVitales = new PdfPTable(5);
+                PdfPCell cellFrecuenciaCardiaca = new PdfPCell();
+                PdfPCell cellTemperatura = new PdfPCell();
+                PdfPCell cellPresionArterialDiastolica = new PdfPCell();
+                PdfPCell cellPresionArterialSistolica = new PdfPCell();
+                PdfPCell cellFrecuenciaRespiratoria = new PdfPCell();
+                PdfPCell asdasd = new PdfPCell();
+                int sistole = signoVital.getSistolica();
+                int diastole = signoVital.getDiatolica();
+                float temperatura = signoVital.getTemperatura();
+                int tipoTemperatura = signoVital.getTipoTemperatura();
+                int fc = signoVital.getFrecuenciaCardiaca();
+                int fr = signoVital.getFecuenciaRespiratoria();
+                harmony.java.awt.Color colorRojo = new harmony.java.awt.Color(255, 191, 191);
+                harmony.java.awt.Color colorAzul = new harmony.java.awt.Color(191, 195, 255);
+                harmony.java.awt.Color colorGris = new harmony.java.awt.Color(223, 244, 233);
+
+                if (sistole > 130) {
+                    cellPresionArterialSistolica.setBackgroundColor(colorRojo);
+                } else if (sistole < 100) {
+                    cellPresionArterialSistolica.setBackgroundColor(colorAzul);
+                } else {
+                    cellPresionArterialSistolica.setBackgroundColor(colorGris);
+                }
+                if (diastole > 96) {
+                    cellPresionArterialDiastolica.setBackgroundColor(colorRojo);
+                } else if (diastole < 70) {
+                    cellPresionArterialDiastolica.setBackgroundColor(colorAzul);
+                } else {
+                    cellPresionArterialDiastolica.setBackgroundColor(colorGris);
+                }
+                if ((temperatura > 37 && tipoTemperatura == 0)
+                        || (temperatura > 98.6 && tipoTemperatura == 1)) {
+                    cellTemperatura.setBackgroundColor(colorRojo);
+                } else if ((temperatura < 36 && tipoTemperatura == 0)
+                        || (temperatura < 96.8 && tipoTemperatura == 1)) {
+                    cellTemperatura.setBackgroundColor(colorAzul);
+                } else {
+                    cellTemperatura.setBackgroundColor(colorGris);
+                }
+                if (fc > 100) {
+                    cellFrecuenciaCardiaca.setBackgroundColor(colorRojo);
+                } else if (fc < 60) {
+                    cellFrecuenciaCardiaca.setBackgroundColor(colorAzul);
+                } else {
+                    cellFrecuenciaCardiaca.setBackgroundColor(colorGris);
+                }
+                if (fr > 12) {
+                    cellFrecuenciaRespiratoria.setBackgroundColor(colorRojo);
+                } else if (fr < 19) {
+                    cellFrecuenciaRespiratoria.setBackgroundColor(colorAzul);
+                } else {
+                    cellFrecuenciaRespiratoria.setBackgroundColor(colorGris);
+                }
+                cellFrecuenciaRespiratoria.setPhrase(new Phrase("FR: " + fr));
+                cellFrecuenciaCardiaca.setPhrase(new Phrase("FC: " + fc));
+                cellTemperatura.setPhrase(new Phrase(
+                        "TEMP: " + String.valueOf(temperatura) + (tipoTemperatura == 0 ? " °C" : " °F")));
+                cellPresionArterialDiastolica.setPhrase(new Phrase("DIA: " + diastole));
+                cellPresionArterialSistolica.setPhrase(new Phrase("SIS: " + sistole));
+
+                tableSignosVitales.addCell(cellFrecuenciaCardiaca);
+                tableSignosVitales.addCell(cellFrecuenciaRespiratoria);
+                tableSignosVitales.addCell(cellPresionArterialDiastolica);
+                tableSignosVitales.addCell(cellPresionArterialSistolica);
+                tableSignosVitales.addCell(cellTemperatura);
+                documento.add(tableSignosVitales);
+            }
+
+            PdfPTable informacionConsulta = new PdfPTable(1);
+            informacionConsulta.addCell(consulta.getInforme());
+            documento.add(informacionConsulta);
+
+        } catch (DocumentException e) {
+
+            Log.e(ETIQUETA_ERROR, e.getMessage());
+
+        } catch (IOException e) {
+
+            Log.e(ETIQUETA_ERROR, e.getMessage());
+
+        } finally {
+            // Cerramos el documento.
+            documento.close();
+        }
+    }
 
     public static File crearFichero(String nombreFichero) throws IOException {
         File ruta = getRuta();

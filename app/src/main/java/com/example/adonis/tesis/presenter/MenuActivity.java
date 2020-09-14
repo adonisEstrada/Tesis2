@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -48,17 +49,21 @@ public class MenuActivity extends AppCompatActivity {
         progressDialog.setMessage("Procesando... Espere por favor.");
 
         Usuario usuario = SessionSettings.getUsuarioIniciado();
-        if (usuario.isSexo()) {
-            imagenDoctor.setImageResource(R.mipmap.doctor_foreground);
+        if (usuario != null) {
+            if (usuario.isSexo()) {
+                imagenDoctor.setImageResource(R.mipmap.doctor_foreground);
+            } else {
+                imagenDoctor.setImageResource(R.mipmap.doctora_foreground);
+            }
+            String genero = usuario.isSexo() ? "Dr. " : "Dra. ";
+            textViewBienvenido.setText(usuario.isSexo() ? "Bienvenido" : "Bienvenida");
+            textViewNombreDoctor.setText(genero + usuario.getNombreCompleto());
+            textViewEspecialidadPersonal.setText(usuario.getEspecialidadPersonal());
         } else {
-            imagenDoctor.setImageResource(R.mipmap.doctora_foreground);
+            Intent intent = new Intent(this, ValidacionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
-        String genero = usuario.isSexo() ? "Dr. " : "Dra. ";
-        textViewBienvenido.setText(usuario.isSexo() ? "Bienvenido" : "Bienvenida");
-        textViewNombreDoctor.setText(genero + usuario.getNombreCompleto());
-        textViewEspecialidadPersonal.setText(usuario.getEspecialidadPersonal());
-
-
     }
 
     public void acercaDeButtonHandler(View v) {
@@ -67,13 +72,40 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void aprenderButtonHandler(View v) {
-//        MyClass myClass = new MyClass();
-//        myClass.generarReporte();
+        Intent intent = new Intent(this, AprenderActivity.class);
+        startActivity(intent);
     }
 
     public void reporteButtonSelectHandler(View v) {
+        new AlertDialog.Builder(this).setMessage("¿Desea mostrar todos los pacientes?")
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        datePickerDesde();
+                    }
+                })
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        generarReporteTodosLosPacientes();
+                    }
+                }).show();
+    }
+
+    private void generarReporteTodosLosPacientes() {
+        pacienteViewModel.getPacientesTodos()
+                .observe(this, new Observer<List<Paciente>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Paciente> pacientes) {
+                        generarReporte(pacientes);
+                    }
+                });
+    }
+
+    private void datePickerDesde() {
         Calendar fecha = Calendar.getInstance();
         final Calendar fechaDesde = Calendar.getInstance();
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
@@ -87,6 +119,14 @@ public class MenuActivity extends AppCompatActivity {
 
     public void asignarPacientes(Calendar desde, Calendar hasta) {
         showProgressDialog();
+        desde.set(Calendar.HOUR_OF_DAY, 0);
+        desde.set(Calendar.MINUTE, 0);
+        desde.set(Calendar.SECOND, 0);
+        desde.set(Calendar.MILLISECOND, 0);
+        hasta.set(Calendar.HOUR_OF_DAY, 23);
+        hasta.set(Calendar.MINUTE, 59);
+        hasta.set(Calendar.SECOND, 59);
+        hasta.set(Calendar.MILLISECOND, 999);
         pacienteViewModel.getPacientes(desde.getTime(), hasta.getTime()).observe(
                 this, new Observer<List<Paciente>>() {
                     @Override

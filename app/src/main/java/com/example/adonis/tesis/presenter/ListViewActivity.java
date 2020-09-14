@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,8 +46,10 @@ public class ListViewActivity extends AppCompatActivity {
 
     private EditText editTextSearch;
     private LinearLayout layoutSearch;
+    private Button buttonMostrar;
 
     private int paciente;
+    private int estadoMostrar = 0;
     private ProgressDialog progressDialog;
     private Object itemSelected;
 
@@ -65,31 +68,30 @@ public class ListViewActivity extends AppCompatActivity {
         interconsultaViewModel = ViewModelProviders.of(this).get(InterconsultaViewModel.class);
         imageViewAgregar = (ImageView) findViewById(R.id.imageViewAgregar);
         layoutSearch = (LinearLayout) findViewById(R.id.layoutSearch);
+        buttonMostrar = (Button) findViewById(R.id.buttonMostrar);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando... Por favor espere.");
 
-        final Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            if (bundle.getString("Controlador").equals("pacientes")) {
-                imageViewAgregar.setImageResource(R.mipmap.agregar_paciente_foreground);
-                layoutSearch.setVisibility(View.VISIBLE);
-                showProgressDialog();
-                pacienteViewModel.getPacientes(SessionSettings.getUsuarioIniciado().getUsuarioId()).observe(this, new Observer<List<Paciente>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Paciente> pacientes) {
-                        List<ItemsListView> adapters = new ArrayList<>();
-                        for (Paciente paciente : pacientes) {
-                            adapters.add(new ItemsListView(
-                                    paciente.getNombre() + " " + paciente.getApellido(),
-                                    paciente.getCedula(),
-                                    Converters.getEdad(paciente.getFechaIngreso())));
+        /**
+         * Validar que el usuario este ingresado
+         */
+        if (SessionSettings.getUsuarioIniciado() == null) {
+            Intent intent = new Intent(this, ValidacionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            final Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                if (bundle.getString("Controlador").equals("pacientes")) {
+                    imageViewAgregar.setImageResource(R.mipmap.agregar_paciente_foreground);
+                    layoutSearch.setVisibility(View.VISIBLE);
+                    showProgressDialog();
+                    pacienteViewModel.getPacientes(SessionSettings.getUsuarioIniciado().getUsuarioId()).observe(this, new Observer<List<Paciente>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Paciente> pacientes) {
+                            setAdapterPacientes(pacientes);
                         }
-                        setIsPaciente(true);
-                        setListAdapter(adapters);
-                        setListPacientes(pacientes);
-                        hideProgressDialog();
-                    }
-                });
+                    });
 //                editTextSearch.setOnKeyListener(new View.OnKeyListener() {
 //                    @Override
 //                    public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -104,41 +106,64 @@ public class ListViewActivity extends AppCompatActivity {
 //                        return false;
 //                    }
 //                });
-            }
-            if (bundle.getString("Controlador").equals("interconsulta")) {
-                layoutSearch.setVisibility(View.GONE);
-                if (bundle.getInt("paciente") >= 0) {
-                    imageViewAgregar.setImageResource(R.mipmap.agregar_interconsulta_foreground);
-                    showProgressDialog();
-                    interconsultaViewModel.getInterconsultas(bundle.getInt("paciente"))
-                            .observe(this, new Observer<List<Interconsulta>>() {
-                                @Override
-                                public void onChanged(@Nullable List<Interconsulta> interconsultas) {
-                                    List<ItemsListView> adapters = new ArrayList<>();
-                                    for (Interconsulta interconsulta : interconsultas) {
-                                        adapters.add(new ItemsListView(interconsulta.getDescripcion(),
-                                                new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aa")
-                                                        .format(interconsulta.getFecha())));
+                }
+                if (bundle.getString("Controlador").equals("interconsulta")) {
+                    layoutSearch.setVisibility(View.GONE);
+                    if (bundle.getInt("paciente") >= 0) {
+                        imageViewAgregar.setImageResource(R.mipmap.agregar_interconsulta_foreground);
+                        showProgressDialog();
+                        interconsultaViewModel.getInterconsultas(bundle.getInt("paciente"))
+                                .observe(this, new Observer<List<Interconsulta>>() {
+                                    @Override
+                                    public void onChanged(@Nullable List<Interconsulta> interconsultas) {
+                                        setAdapterInterconsulta(interconsultas);
+                                        setPaciente(bundle.getInt("paciente"));
                                     }
-                                    setListAdapter(adapters);
-                                    setListPacientes(null);
-                                    setIsPaciente(false);
-                                    setPaciente(bundle.getInt("paciente"));
-                                    setInterconsultas(interconsultas);
-                                    if (interconsultas.isEmpty()) {
-                                        preguntarCrearNuevaInterconsulta();
-                                    }
-                                    hideProgressDialog();
-                                }
-                            });
+                                });
+                    }
                 }
             }
         }
     }
 
+    private void setAdapterPacientes(List<Paciente> pacientes) {
+        List<ItemsListView> adapters = new ArrayList<>();
+        for (Paciente paciente : pacientes) {
+            adapters.add(new ItemsListView(
+                    paciente.getNombre() + " " + paciente.getApellido(),
+                    paciente.getCedula(),
+                    Converters.getEdad(paciente.getFechaIngreso()),
+                    new SimpleDateFormat("dd/MM/yy hh:mm aa").format(paciente.getFecha())));
+        }
+        setIsPaciente(true);
+        buttonMostrar.setText("Mostrar Atendidos");
+        setListAdapter(adapters);
+        setListPacientes(pacientes);
+        hideProgressDialog();
+    }
+
+    private void setAdapterInterconsulta(List<Interconsulta> interconsultas) {
+        List<ItemsListView> adapters = new ArrayList<>();
+        for (Interconsulta interconsulta : interconsultas) {
+            adapters.add(new ItemsListView(interconsulta.getDescripcion(),
+                    new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aa")
+                            .format(interconsulta.getFecha())));
+        }
+        setListAdapter(adapters);
+        setListPacientes(null);
+        setIsPaciente(false);
+        setInterconsultas(interconsultas);
+        buttonMostrar.setText("Mostrar Consultas");
+        if (interconsultas.isEmpty()) {
+            preguntarCrearNuevaInterconsulta();
+        }
+        hideProgressDialog();
+    }
+
     public void buscarPaciente(String search) {
         showProgressDialog();
-        pacienteViewModel.getPaciente(search).observe(this, new Observer<List<Paciente>>() {
+        boolean atendido = estadoMostrar == 0 ? true : false;
+        pacienteViewModel.getPaciente(search, atendido).observe(this, new Observer<List<Paciente>>() {
             @Override
             public void onChanged(@Nullable List<Paciente> pacientes) {
                 List<ItemsListView> adapters = new ArrayList<>();
@@ -325,30 +350,78 @@ public class ListViewActivity extends AppCompatActivity {
                         .show();
 
             } else if (itemSelected instanceof Paciente) {
-                new AlertDialog.Builder(this)
-                        .setMessage("¿Desea colocar al paciente como atendido?. " +
-                                "Esto lo eliminará del listado"
-                                + "\n" + ((Paciente) itemSelected).getNombre() + " " +
-                                ((Paciente) itemSelected).getApellido())
-                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(this).setMessage("¿Que desea realizar?")
+                        .setNeutralButton("Cambiar de estado", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Paciente paciente = (Paciente) itemSelected;
-                                paciente.setActivo(false);
-                                paciente.setFechaAtendido(new Date());
-                                pacienteViewModel.insertPaciente(paciente);
-                                dialogInterface.dismiss();
+                                dialogConfirmDelete();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Editar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), AgregarPacienteActivity.class);
+                                intent.putExtra("paciente", ((Paciente) itemSelected).getPacienteId());
+                                startActivity(intent);
                             }
                         })
-                        .show();
+                        .setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogConfirmDeletePermanent();
+                            }
+                        }).show();
             }
         }
+    }
+
+    public void dialogConfirmDelete() {
+        new AlertDialog.Builder(this)
+                .setMessage("¿Desea colocar al paciente como " +
+                        (estadoMostrar == 0 ? "" : "no ") +
+                        "atendido?. "
+                        + "\n" + ((Paciente) itemSelected).getNombre() + " " +
+                        ((Paciente) itemSelected).getApellido())
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Paciente paciente = (Paciente) itemSelected;
+                        paciente.setActivo(estadoMostrar == 0 ? false : true);
+                        paciente.setFechaAtendido(new Date());
+                        pacienteViewModel.insertPaciente(paciente);
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    public void dialogConfirmDeletePermanent() {
+        new AlertDialog.Builder(this)
+                .setMessage("¿Seguro desea ELIMINAR este paciente?"
+                        + "\n" + ((Paciente) itemSelected).getNombre() + " " +
+                        ((Paciente) itemSelected).getApellido())
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Paciente paciente = (Paciente) itemSelected;
+                        paciente.setVisible(false);
+                        pacienteViewModel.insertPaciente(paciente);
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
     }
 
     public Object getItemSelected() {
@@ -369,5 +442,69 @@ public class ListViewActivity extends AppCompatActivity {
 
     public void buttonSearchSelectHandler(View v) {
         buscarPaciente(editTextSearch.getText().toString());
+    }
+
+    public void buttonMostrarSelectHandler(View v) {
+        if (estadoMostrar == 0 && !isPaciente) {
+            interconsultaViewModel.getInterconsultaConsulta(paciente)
+                    .observe(this, new Observer<List<Interconsulta>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Interconsulta> interconsultas) {
+                            if (interconsultas != null && !interconsultas.isEmpty()) {
+                                setAdapterInterconsulta(interconsultas);
+                                estadoMostrar = 1;
+                                buttonMostrar.setText("Mostrar Signos Vitales");
+                            }
+                        }
+                    });
+        } else if (estadoMostrar == 1 && !isPaciente) {
+            interconsultaViewModel.getInterconsultaSignoVital(paciente)
+                    .observe(this, new Observer<List<Interconsulta>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Interconsulta> interconsultas) {
+                            if (interconsultas != null && !interconsultas.isEmpty()) {
+                                setAdapterInterconsulta(interconsultas);
+                                estadoMostrar = 2;
+                                buttonMostrar.setText("Mostrar Todos");
+                            }
+                        }
+                    });
+        } else if (estadoMostrar == 2 && !isPaciente) {
+            interconsultaViewModel.getInterconsultas(paciente)
+                    .observe(this, new Observer<List<Interconsulta>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Interconsulta> interconsultas) {
+                            if (interconsultas != null && !interconsultas.isEmpty()) {
+                                setAdapterInterconsulta(interconsultas);
+                                estadoMostrar = 0;
+                                buttonMostrar.setText("Mostrar Consultas");
+                            }
+                        }
+                    });
+        } else if (estadoMostrar == 0 && isPaciente) {
+            pacienteViewModel.getPacientesAtendidos()
+                    .observe(this, new Observer<List<Paciente>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Paciente> pacientes) {
+                            if (pacientes != null && !pacientes.isEmpty()) {
+                                setAdapterPacientes(pacientes);
+                                estadoMostrar = 1;
+                                buttonMostrar.setText("Mostrar no Atendidos");
+                            }
+                        }
+                    });
+        } else if (estadoMostrar == 1 && isPaciente) {
+            pacienteViewModel.getPacientes(SessionSettings.getUsuarioIniciado().getUsuarioId())
+                    .observe(this, new Observer<List<Paciente>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Paciente> pacientes) {
+                            if (pacientes != null && !pacientes.isEmpty()) {
+                                setAdapterPacientes(pacientes);
+                                estadoMostrar = 0;
+                                buttonMostrar.setText("Mostrar Atendidos");
+                            }
+                        }
+                    });
+        }
     }
 }

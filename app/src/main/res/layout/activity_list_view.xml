@@ -58,4 +58,23 @@
         android:onClick="agregarPacienteSelectHandler"
         android:src="@mipmap/agregar_paciente_foreground" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/linearLayout"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/buttonMostrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="0.9"
+            android:background="@color/colorVerdeSombra1"
+            android:clickable="true"
+            android:onClick="buttonMostrarSelectHandler"
+            android:textColor="@color/colorVerdeTinte5" />
+    </LinearLayout>
+
+
 </RelativeLayout>

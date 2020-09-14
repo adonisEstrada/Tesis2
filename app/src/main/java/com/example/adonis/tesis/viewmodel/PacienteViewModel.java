@@ -38,13 +38,19 @@ public class PacienteViewModel extends AndroidViewModel {
      * @param search String a buscar
      * @return lista de pacientes
      */
-    public LiveData<List<Paciente>> getPaciente(String search) {
-        return pacienteRepository.getPacientes(search);
+    public LiveData<List<Paciente>> getPaciente(String search, boolean atendido) {
+        return pacienteRepository.getPacientes(search, atendido);
     }
 
     public void insertPaciente(Paciente paciente) {
         pacienteRepository.insertPaciente(paciente);
     }
 
+    public LiveData<List<Paciente>> getPacientesAtendidos() {
+        return pacienteRepository.getPacientesAtendidos();
+    }
 
+    public LiveData<List<Paciente>> getPacientesTodos() {
+        return pacienteRepository.getPacientesTodos();
+    }
 }

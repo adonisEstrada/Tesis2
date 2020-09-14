@@ -1,14 +1,13 @@
 <resources>
-    <string name="app_name">Tesis</string>
+    <string name="app_name">HERApp</string>
     <string name="title_paciente">Pacientes</string>
-    <string name="description_pacientes">Aqui podrá ver el listado completo de sus pacientes</string>
+    <string name="description_pacientes">Listado completo de los pacientes</string>
     <string name="title_aprender">Aprender más</string>
-    <string name="description_aprender">Aqui podrás aprender mas sobre como usar esta
-    aplicación y los nuevos usos que le podrás encontrar</string>
+    <string name="description_aprender">Aprender sobre como usar esta
+    aplicación y sus nuevos usos</string>
     <string name="title_acerca_de">Acerca de</string>
-    <string name="description_acerca_de">Aqui estará toda la información referente
-    a esta aplicación</string>
-    <string name="text_descripcion_acerca_de_iupsm">Aplicacion realizada en representación
+    <string name="description_acerca_de">Muestra toda la información acerca de esta aplicación</string>
+    <string name="text_descripcion_acerca_de_iupsm">Aplicación realizada en representación
     de un Trabajo Especial de Grado para el Instituto Politécnico Universitario Santiago
     Mariño para optar por el tituto de Ingeniería de Sistemas</string>
     <string name="text_descripcion_acerda_de_her">Esta aplicación tiene como objetivo
@@ -22,5 +21,42 @@
     <string name="text_description_acerca_de_developer_name">Adonis Estrada</string>
     <string name="text_reporte_title">Reporte</string>
     <string name="text_reporte_description">Generará un reporte de pacientes atendidos en un determinado tiempo</string>
+    <string name="text_alert_validate">No hay un usuario ingresado en el sistema</string>
+    <string name="text_description_validate">Esto puede deberse a que su dispositivo móvil
+    no fue capáz de guardar los datos del usuario al cambiar de aplicación</string>
+    <string name="text_description_validate_advance">Con mas detalles... El usuario se
+        guarda en la parte estática de la aplicación para que todos los módulos de la app
+        compartan esa información y hacerla mas segura contra fraude informativo, al cambiar de
+        aplicación y el dispositivo se queda sin memoria RAM, Android elimina todas las aplicaciones
+        que no esten en uso de la memoria para que la aplicación con mas prioridad(la que el usuario
+        esta usando) funcione correctamente. Por esta razón, los datos estáticos son guardados
+        directamente en la memoria RAM, la cual es eliminada cuando el dispositivo se queda sin
+        memoria.</string>
+    <string name="learning_text1">En la pantalla principal o menu principal se mostrará la
+    información del usuario ingresado en la parte superior.</string>
+    <string name="learning_text2">El primer menú (Pacientes) lo llevará al listado de pacientes,
+        aqui será visible todos los pacientes que haya ingresado.</string>
+    <string name="learning_text3">En la parte inferior del listado se mostrarán dos botones, el de
+    la derecha es para ingresar un nuevo paciente y el de la izquierda para alternar entre los
+    listados(se explicará mas adelante).</string>
+    <string name="learning_text4">Una vez creado el paciente este se motrará inmediatamente en el
+        listado. </string>
+    <string name="learning_text5">Puede dejar presionado a un paciente lo cual llevará a un pequeño
+        menú emergente que preguntará lo que desea hacer</string>
+    <string name="learning_text6">El botón eliminar eliminará al paciente de todo el sistema,
+    el botón editar lo llevará a la pantalla para que pueda cambiar los datos del paciente y
+    finalmente el botón de cambiar estado, este cambiará el estado del paciente a ATENDIDO, lo cual
+        será retirado del listado actual, y en el botón inferior izquierdo podrá ver los pacientes
+        con ese estado.</string>
+    <string name="learning_text7">Al tocar un paciente será llevado al listado de estudios del
+    paciente, al no poseer estudios aparecerá un menu emergente para crearlos.</string>
+    <string name="learning_text8">Una vez creado un estudio este aparecerá en el listado
+    inmediatamente, podrá ver la información con tocarlo.</string>
+    <string name="learning_text9">Puede dejar presionado un estudio para eliminarlo del sistema.</string>
+    <string name="learning_text10">Al tocar una informacion de consulta aparecerá un botón de
+    una impresora en la parte inferior, este generará el informe médico en formato PDF.</string>
+    <string name="learning_text11">Al tocar un signo vital podrá ver en la parte inferior un
+    gráfico que muestra las diferencias de los datos tomados por orden de tiempo(no se apreciará
+        si no hay varios signos vitales ingresados).</string>
 
 </resources>

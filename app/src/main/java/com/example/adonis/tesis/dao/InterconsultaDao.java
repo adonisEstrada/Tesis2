@@ -27,6 +27,21 @@ public interface InterconsultaDao {
             "WHERE tipo_interconsulta=2 " +
             "AND fecha<=:fecha " +
             "AND paciente=:paciente " +
+            "AND activo=1 " +
             "ORDER BY fecha ASC")
     LiveData<List<Interconsulta>> getInterconsultaLessDate(Date fecha, int paciente);
+
+    @Query("SELECT DISTINCT * FROM interconsulta " +
+            "WHERE tipo_interconsulta=2 " +
+            "AND paciente=:paciente " +
+            "AND activo=1 " +
+            "ORDER BY fecha DESC")
+    LiveData<List<Interconsulta>> getInterconsultaSignoVital(int paciente);
+
+    @Query("SELECT DISTINCT * FROM interconsulta " +
+            "WHERE tipo_interconsulta=1 " +
+            "AND paciente=:paciente " +
+            "AND activo=1 " +
+            "ORDER BY fecha DESC")
+    LiveData<List<Interconsulta>> getInterconsultaConsulta(int paciente);
 }

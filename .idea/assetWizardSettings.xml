@@ -33,10 +33,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundLayerName" value="reporte_background" />
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../../Imágenes/material tesis/reporte.png" />
-                                      <entry key="foregroundLayerName" value="reporte_foreground" />
-                                      <entry key="outputName" value="reporte_interconsulta" />
+                                      <entry key="backgroundLayerName" value="learning_13_background" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/app/src/main/res/drawable/learning_13.jpg" />
+                                      <entry key="foregroundLayerName" value="learning_13_foreground" />
+                                      <entry key="outputName" value="learning_13_compresse" />
                                     </map>
                                   </option>
                                 </PersistentState>

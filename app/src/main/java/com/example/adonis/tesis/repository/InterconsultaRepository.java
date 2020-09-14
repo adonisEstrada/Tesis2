@@ -52,4 +52,12 @@ public class InterconsultaRepository {
             return null;
         }
     }
+
+    public LiveData<List<Interconsulta>> getInterconsultaSignoVital(int paciente) {
+        return interconsultaDao.getInterconsultaSignoVital(paciente);
+    }
+
+    public LiveData<List<Interconsulta>> getInterconsultaConsulta(int paciente) {
+        return interconsultaDao.getInterconsultaConsulta(paciente);
+    }
 }

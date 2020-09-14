@@ -140,10 +140,10 @@ public class RegistrarActivity extends AppCompatActivity {
         sexo = !sexo;
         if (sexo) {
             buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorMujer));
-            buttonSexo.setText("Mujer");
+            buttonSexo.setText("Femenino");
         } else {
             buttonSexo.setBackgroundColor(getResources().getColor(R.color.colorVerdeAnalogo1));
-            buttonSexo.setText("Hombre");
+            buttonSexo.setText("Masculino");
         }
     }
 }

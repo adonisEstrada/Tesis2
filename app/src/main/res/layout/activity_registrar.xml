@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:labelFor="@id/buttonSexo"
-                    android:text="Sexualidad" />
+                    android:text="Género" />
 
                 <Button
                     android:id="@+id/buttonSexo"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorVerdeAnalogo1"
                     android:onClick="buttonSexoSelectHandler"
-                    android:text="Hombre"
+                    android:text="Masculino"
                     android:textColor="@color/colorVerdeSombra5" />
 
                 <!--<Switch-->

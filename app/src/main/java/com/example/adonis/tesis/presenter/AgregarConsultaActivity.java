@@ -3,6 +3,7 @@ package com.example.adonis.tesis.presenter;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import java.util.Date;
 
 import util.Constantes;
 import util.Converters;
+import util.SessionSettings;
 
 public class AgregarConsultaActivity extends AppCompatActivity {
 
@@ -48,6 +50,15 @@ public class AgregarConsultaActivity extends AppCompatActivity {
 //        consultaViewModel = ViewModelProviders.of(this).get(ConsultaViewModel.class);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando... Por favor espere.");
+        /**
+         * Validar que el usuario este ingresado
+         */
+        if (SessionSettings.getUsuarioIniciado() == null) {
+            Intent intent = new Intent(this, ValidacionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             showProgressDialog();

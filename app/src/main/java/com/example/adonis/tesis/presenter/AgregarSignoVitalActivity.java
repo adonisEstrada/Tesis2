@@ -3,6 +3,7 @@ package com.example.adonis.tesis.presenter;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import java.util.Date;
 
 import util.Constantes;
 import util.Converters;
+import util.SessionSettings;
 
 public class AgregarSignoVitalActivity extends AppCompatActivity {
 
@@ -67,6 +69,15 @@ public class AgregarSignoVitalActivity extends AppCompatActivity {
         pacienteViewModel = ViewModelProviders.of(this).get(PacienteViewModel.class);
         interconsultaViewModel = ViewModelProviders.of(this).get(InterconsultaViewModel.class);
 //        signoVitalViewModel = ViewModelProviders.of(this).get(SignoVitalViewModel.class);
+        /**
+         * Validar que el usuario este ingresado
+         */
+        if (SessionSettings.getUsuarioIniciado() == null) {
+            Intent intent = new Intent(this, ValidacionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter
                 .createFromResource(this, R.array.temperature,
                         android.R.layout.simple_spinner_item);

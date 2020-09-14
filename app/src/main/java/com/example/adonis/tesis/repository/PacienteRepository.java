@@ -36,12 +36,16 @@ public class PacienteRepository {
         return pacienteDao.getPaciente(paciente);
     }
 
-    public LiveData<List<Paciente>> getPacientes(String search) {
-        return pacienteDao.getPacientes("%" + search + "%", SessionSettings.getUsuarioIniciado().getUsuarioId());
+    public LiveData<List<Paciente>> getPacientes(String search, boolean atendido) {
+        return pacienteDao.getPacientes("%" + search + "%", SessionSettings.getUsuarioIniciado().getUsuarioId(), atendido);
     }
 
     public LiveData<List<Paciente>> getPacientes(Date fechaDesde, Date fechaHasta) {
         return pacienteDao.getPacientes(fechaDesde, fechaHasta, SessionSettings.getUsuarioIniciado().getUsuarioId());
+    }
+
+    public LiveData<List<Paciente>> getPacientesTodos() {
+        return pacienteDao.getPacietesTodos(SessionSettings.getUsuarioIniciado().getUsuarioId());
     }
 
     private static class insertPacienteAsyncTask extends AsyncTask<Paciente, Void, Void> {
@@ -57,5 +61,9 @@ public class PacienteRepository {
             pacienteDao.insert(pacientes[0]);
             return null;
         }
+    }
+
+    public LiveData<List<Paciente>> getPacientesAtendidos() {
+        return pacienteDao.getPacienteAtendidos(SessionSettings.getUsuarioIniciado().getUsuarioId());
     }
 }

@@ -30,6 +30,7 @@ public class Paciente {
     @ColumnInfo(name = "usuario_id")
     private int usuario;
     private boolean activo;
+    private boolean visible;
     private Date fecha;
     private Date fechaAtendido;
 
@@ -160,4 +161,12 @@ public class Paciente {
 //    public void setDescripcionAtencion(String descripcionAtencion) {
 //        this.descripcionAtencion = descripcionAtencion;
 //    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

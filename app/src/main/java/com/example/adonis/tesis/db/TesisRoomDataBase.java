@@ -102,6 +102,7 @@ public abstract class TesisRoomDataBase extends RoomDatabase {
             Paciente paciente = new Paciente();
             paciente.setPacienteId(1);
             paciente.setActivo(true);
+            paciente.setVisible(true);
             paciente.setNombre("Elber");
             paciente.setApellido("Gonzales");
             paciente.setCedula("8269873");
@@ -117,6 +118,7 @@ public abstract class TesisRoomDataBase extends RoomDatabase {
             Paciente paciente2 = new Paciente();
             paciente2.setPacienteId(2);
             paciente2.setActivo(true);
+            paciente2.setVisible(true);
             paciente2.setNombre("Alberto");
             paciente2.setApellido("Mates");
             paciente2.setCedula("8345673");
